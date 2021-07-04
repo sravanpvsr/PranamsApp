@@ -4,8 +4,8 @@ from rest_framework.parsers import JSONParser
 from django.http.response import JsonResponse
 
 
-from PranamsApp.models import Member_Category_Master,Institution_Master,Sub_Division_Master,Institution_Sub_Division_Map,Member_Master,Room_Type_Master,Room_Master,Member_Accommodation,Occupant_Master,Gate_Master,Vehicle_Gate_Map,add_demography
-from PranamsApp.serializers import Member_Category_Master_Serializer,Institution_Master_Serializer,Sub_Division_Master_Serializer,Institution_Sub_Division_Map_Serializer,Member_Master_Serializer,Room_Type_Master_Serializer,Room_Master_Serializer,Member_Accommodation_Serializer,Occupant_Master_Serializer,Gate_Master_Serializer,Vehicle_Gate_Map_Serializer
+from PranamsApp.models import Member_Category_Master,Institution_Master,Sub_Division_Master,Institution_Sub_Division_Map,Member_Master,Room_Type_Master,Room_Master,Occupant_Master,Gate_Master,Vehicle_Gate_Map,add_demography
+from PranamsApp.serializers import Member_Category_Master_Serializer,Institution_Master_Serializer,Sub_Division_Master_Serializer,Institution_Sub_Division_Map_Serializer,Member_Master_Serializer,Room_Type_Master_Serializer,Room_Master_Serializer,Occupant_Master_Serializer,Gate_Master_Serializer,Vehicle_Gate_Map_Serializer
 from PranamsApp.forms import add_demography_form, add_occupant_form, add_vehicle_form
 
 from django.core.files.storage import default_storage
@@ -64,7 +64,7 @@ def demography(request):
             data=form.save()
             #data=form.save(commit=FALSE)
             #data.save()
-            context["status"]="{} Added Successfully".format(data.Member_Name)
+            context["status"]="{} Added Successfully".format(data.Name)
         else:
             context["errorStatus"]="Please correct the errors and re-submit"
             #return render(request, "demography.html", {'form':form})
@@ -127,6 +127,14 @@ def vehicle(request):
     return render(request,"vehicle.html",
     context)
 
+def search(request):
+    primaryMemberDisplay=add_demography.objects.all()
+    #occupantDisplay=Room_Master.objects.all()
+    #vehicleDisplay=add_vehicle
+    return render(request,"search.html",
+    {"add_demography":primaryMemberDisplay,
+    #"Room_Master":occupantDisplay
+    })
 # def add_demography_view(request):
 #     return render(request,"")
 

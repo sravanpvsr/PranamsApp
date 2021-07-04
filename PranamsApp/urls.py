@@ -11,4 +11,5 @@ urlpatterns=[
     url(r'^demography/$',views.demography,name="demography"),
     url(r'^occupant/$',views.occupant,name="occupant"),
     url(r'^vehicle/$',views.vehicle,name="vehicle"),
+    url(r'^search/$',views.search,name="search"),
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

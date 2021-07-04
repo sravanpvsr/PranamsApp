@@ -3,8 +3,8 @@ from django.core.validators import EMPTY_VALUES
 #from django.utils.safestring import mark_safe
 import re
 
-from PranamsApp.models import Member_Category_Master,Institution_Master,Sub_Division_Master,Institution_Sub_Division_Map,Member_Master,Room_Type_Master,Room_Master,Member_Accommodation,Occupant_Master,Gate_Master,Vehicle_Gate_Map,add_demography,add_vehicle
-from PranamsApp.serializers import Member_Category_Master_Serializer,Institution_Master_Serializer,Sub_Division_Master_Serializer,Institution_Sub_Division_Map_Serializer,Member_Master_Serializer,Room_Type_Master_Serializer,Room_Master_Serializer,Member_Accommodation_Serializer,Occupant_Master_Serializer,Gate_Master_Serializer,Vehicle_Gate_Map_Serializer
+from PranamsApp.models import Member_Category_Master,Institution_Master,Sub_Division_Master,Institution_Sub_Division_Map,Member_Master,Room_Type_Master,Room_Master,Occupant_Master,Gate_Master,Vehicle_Gate_Map,add_demography,add_vehicle
+from PranamsApp.serializers import Member_Category_Master_Serializer,Institution_Master_Serializer,Sub_Division_Master_Serializer,Institution_Sub_Division_Map_Serializer,Member_Master_Serializer,Room_Type_Master_Serializer,Room_Master_Serializer,Occupant_Master_Serializer,Gate_Master_Serializer,Vehicle_Gate_Map_Serializer
 
 class add_demography_form(forms.ModelForm):
     def __init__(self, *args, **kwargs):
@@ -23,7 +23,8 @@ class add_demography_form(forms.ModelForm):
 
     class Meta:
         model=add_demography
-        exclude=["Updated_Date","Updated_By","Status"]
+        exclude=["Updated_Date","Updated_By","Status","Member_Occupant",
+        "Relationship_With_Primary_Member","Permanent_Resident_Or_Not"]
         #widgets = {'Staff_Working_Since': forms.HiddenInput()}
 
     CHOICES = (
@@ -43,12 +44,12 @@ class add_demography_form(forms.ModelForm):
     def clean(self):
         super(add_demography_form, self).clean()
         
-        Member_Name=self.cleaned_data.get('Member_Name')
-        Member_Mobile=self.cleaned_data.get('Member_Mobile')
+        Member_Name=self.cleaned_data.get('Name')
+        Member_Mobile=self.cleaned_data.get('Mobile')
         #Member_Whatsapp=self.cleaned_data.get('Member_Whatsapp') #+,d
         Staff_Designation=self.cleaned_data.get('Staff_Designation')
         Staff_Institution_Emp_ID=self.cleaned_data.get('Staff_Institution_Emp_ID')
-        Member_Aadhaar_ID=self.cleaned_data.get('Member_Aadhaar_ID')
+        Member_Aadhaar_ID=self.cleaned_data.get('Aadhaar_ID')
         #Member_DL_No=self.cleaned_data.get('Member_DL_No')
         Address_Outside_PSN=self.cleaned_data.get('Address_Outside_PSN')
         Emergency_Contact_Name=self.cleaned_data.get('Emergency_Contact_Name')
@@ -57,7 +58,7 @@ class add_demography_form(forms.ModelForm):
         #Emergency_Contact_Mobile_No=self.cleaned_data.get('Emergency_Contact_Mobile_No')
         Emergency_Contact_Address=self.cleaned_data.get('Emergency_Contact_Address')
         
-        Member_Category=self.cleaned_data['Member_Category']
+        Member_Category=self.cleaned_data['Category']
 
 
 
@@ -113,8 +114,9 @@ class add_occupant_form(forms.ModelForm):
         super().__init__(*args, **kwargs)
 
     class Meta:
-        model=Occupant_Master
-        exclude=["Updated_Date","Updated_By","Status","Occ_ID"]
+        model=add_demography
+        exclude=["Updated_Date","Updated_By","Status","Occ_ID",
+        "Room_Type","Address_Outside_PSN"]
 
 
     CHOICES = (
@@ -134,7 +136,7 @@ class add_occupant_form(forms.ModelForm):
     def clean(self):
         super(add_occupant_form, self).clean()
         
-        Name=self.cleaned_data.get('Occupant_Name')
+        Name=self.cleaned_data.get('Name')
         Mobile=self.cleaned_data.get('Mobile')
         #Member_Whatsapp=self.cleaned_data.get('Member_Whatsapp') #+,d
         Staff_Designation=self.cleaned_data.get('Staff_Designation')

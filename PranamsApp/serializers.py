@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from PranamsApp.models import Member_Category_Master,Institution_Master,Sub_Division_Master,Institution_Sub_Division_Map,Member_Master,Room_Type_Master,Room_Master,Member_Accommodation,Occupant_Master,Gate_Master,Vehicle_Gate_Map
+from PranamsApp.models import Member_Category_Master,Institution_Master,Sub_Division_Master,Institution_Sub_Division_Map,Member_Master,Room_Type_Master,Room_Master,Occupant_Master,Gate_Master,Vehicle_Gate_Map
 
 class Member_Category_Master_Serializer(serializers.ModelSerializer):
     class Meta:
@@ -86,14 +86,14 @@ class Room_Master_Serializer(serializers.ModelSerializer):
         'Updated_By',
         'Status')
 
-class Member_Accommodation_Serializer(serializers.ModelSerializer):
-    class Meta:
-        model = Member_Accommodation
-        fields=('Member_PRANAMS_ID',
-        'Room',
-        'Updated_Date',
-        'Updated_By',
-        'Status')
+# class Member_Accommodation_Serializer(serializers.ModelSerializer):
+#     class Meta:
+#         model = Member_Accommodation
+#         fields=('Member_PRANAMS_ID',
+#         'Room',
+#         'Updated_Date',
+#         'Updated_By',
+#         'Status')
 
 class Occupant_Master_Serializer(serializers.ModelSerializer):
     class Meta:

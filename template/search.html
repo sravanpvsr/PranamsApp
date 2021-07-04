@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+{% load bootstrap4 %}
+{% block  myblock %}
+
+<center>
+    <div class ="col-md-6 mx-auto">               
+            <h1>Get Rooms Data</h1>
+    </div>
+    <hr>
+<h2>Primary Member </h2>
+<table border="1">
+    <tr>
+        <th>Member_Name</th>
+    </tr>
+     {% for result in add_demography%}
+     <tr>
+         <td>
+             {{result.Member_Name}}
+         </td>
+     </tr>
+     {% endfor %}
+</table>
+</hr>
+
+<!-- <hr>
+<h2>Occupant Details </h2>
+<table border="1">
+    <tr>
+    <th>Occ_Name</th> 
+
+</tr>
+{% for result in Room_Master%}
+<tr>
+    <td>
+        {{result.Room}}
+    </td>
+</tr>
+{% endfor %}
+
+</table>
+</hr> -->
+
+<!-- <hr>
+<h2>Vehicle Details</h2>
+<table border="1">
+
+
+</table>
+</hr> -->
+
+</center>
+
+
+
+
+
+
+
+
+
+{% endblock %}
