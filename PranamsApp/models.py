@@ -73,12 +73,29 @@ class Institution_Sub_Division_Map(models.Model):
     Updated_By=models.CharField(max_length=20)
     Status=models.CharField(max_length=1)
 
+class Room_Type_Master(models.Model):
+    Room_Type_ID=models.CharField(primary_key=True,max_length=10)
+    Room_Type_Desc=models.CharField(max_length=20)
+    Updated_Date=models.DateField()
+    Updated_By=models.CharField(max_length=20)
+    Status=models.CharField(max_length=1)
+    def __str__(self):
+        return self.Room_Type_Desc
 
+class Room_Master(models.Model):
+    Room=models.CharField(primary_key=True,max_length=10)
+    Room_Type_ID=models.ForeignKey(Room_Type_Master, on_delete=models.CASCADE)
+    Updated_Date=models.DateField()
+    Updated_By=models.CharField(max_length=20)
+    Status=models.CharField(max_length=1)
+    def __str__(self):
+        return self.Room
 
 class Member_Master(models.Model):
     Member_PRANAMS_ID=models.CharField(primary_key=True,max_length=20)
     Member_Name=models.CharField(max_length=100)   
     Member_Photo_File_Name=models.CharField(max_length=150)
+    Room=models.ForeignKey(Room_Master,on_delete=models.CASCADE)
     #Member_Type=models.CharField(max_length=20)
     Member_Aadhaar_ID=models.IntegerField()
     Member_DOB=models.DateField()
@@ -104,23 +121,9 @@ class Member_Master(models.Model):
     #Member_DL_No=models.CharField(max_length=50)
     #Member_DL_Validity=models.DateField()
 
-class Room_Type_Master(models.Model):
-    Room_Type_ID=models.CharField(primary_key=True,max_length=10)
-    Room_Type_Desc=models.CharField(max_length=20)
-    Updated_Date=models.DateField()
-    Updated_By=models.CharField(max_length=20)
-    Status=models.CharField(max_length=1)
-    def __str__(self):
-        return self.Room_Type_Desc
 
-class Room_Master(models.Model):
-    Room=models.CharField(primary_key=True,max_length=10)
-    Room_Type_ID=models.ForeignKey(Room_Type_Master, on_delete=models.CASCADE)
-    Updated_Date=models.DateField()
-    Updated_By=models.CharField(max_length=20)
-    Status=models.CharField(max_length=1)
-    def __str__(self):
-        return self.Room
+
+
 
 
 class Member_Accommodation(models.Model):
