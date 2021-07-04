@@ -1,0 +1,136 @@
+{% extends "base.html" %}
+{% load bootstrap4 %}
+{% block  myblock %}
+
+<script>
+    function Hide() {
+
+    if(document.getElementById('id_Whatsapp_Choice').options[document.getElementById('id_Whatsapp_Choice').selectedIndex].value == "yes") {
+                 document.getElementById('id_Whatsapp').disabled = true;
+            }
+
+
+    else {
+        document.getElementById('id_Whatsapp').disabled = false;
+        //  document.getElementById('id_list1').style.display = '';
+            //  document.getElementById('id_list2').style.display = 'none';
+        }
+    }
+    function StaffHide() {
+     if(document.getElementById('id_Staff_Choice').options[document.getElementById('id_Staff_Choice').selectedIndex].value == "no") {
+            document.getElementById('id_Staff_Designation').disabled = true;
+            document.getElementById('id_Staff_Institution_Emp_ID').disabled = true;
+            document.getElementById('id_Institution_Name').disabled = true;
+            document.getElementById('id_Sub_Division_Name').disabled = true;
+            document.getElementById('id_Staff_Working_Since').disabled = true;
+            document.getElementById('id_Mobile').disabled = true
+            document.getElementById('id_Whatsapp_Choice').disabled = true;
+            document.getElementById('id_Whatsapp').disabled = true;
+            document.getElementById('id_Photo_File_Name').disabled = true;
+            document.getElementById('id_Emergency_Contact_Name').disabled = true;
+            document.getElementById('id_Emergency_Contact_Email').disabled = true;
+            document.getElementById('id_Emergency_Contact_Relationship').disabled = true;
+            document.getElementById('id_Emergency_Contact_ISD').disabled = true;
+            document.getElementById('id_Emergency_Contact_Mobile_No').disabled = true;
+            document.getElementById('id_Emergency_Contact_Address').disabled = true;
+            document.getElementById('id_Permanent_Resident_or_Not').disabled = false;
+            document.getElementById('id_Blood_Group').disabled = true;
+            document.getElementById('id_Occupant_Category').disabled = true;
+        }
+
+    
+
+     else  {
+            document.getElementById('id_Staff_Designation').disabled = false;
+            document.getElementById('id_Staff_Institution_Emp_ID').disabled = false;
+            document.getElementById('id_Institution_Name').disabled = false;
+            document.getElementById('id_Sub_Division_Name').disabled = false;
+            document.getElementById('id_Staff_Working_Since').disabled = false;
+            document.getElementById('id_Mobile').disabled = false;
+            document.getElementById('id_Whatsapp_Choice').disabled = false;
+            document.getElementById('id_Whatsapp').disabled = false;
+            document.getElementById('id_Photo_File_Name').disabled = false;
+            document.getElementById('id_Emergency_Contact_Name').disabled = false;
+            document.getElementById('id_Emergency_Contact_Email').disabled = false;
+            document.getElementById('id_Emergency_Contact_Relationship').disabled = false;
+            document.getElementById('id_Emergency_Contact_ISD').disabled = false;
+            document.getElementById('id_Emergency_Contact_Mobile_No').disabled = false;
+            document.getElementById('id_Emergency_Contact_Address').disabled = false;
+            document.getElementById('id_Occupant_Category').disabled = false;
+            document.getElementById('id_Blood_Group').disabled = false;
+            document.getElementById('id_Permanent_Resident_or_Not').disabled = true;
+            //  document.getElementById('id_list1').style.display = '';
+            //  document.getElementById('id_list2').style.display = 'none';
+        }
+    }
+
+    // function Whatsapp(){
+    //         if (document.getElementById('id_Whatsapp_Choice_0').checked== true){
+    //                 document.getElementById('id_Member_Whatsapp').disabled = true;
+    //  }
+
+    //  else if(document.getElementById('id_Whatsapp_Choice_1').checked = true){
+    //         document.getElementById('id_Member_Whatsapp').disabled = false;
+    //  }
+      
+    //}
+
+    
+    
+    window.onload = function() {
+        document.getElementById('id_Staff_Choice').onchange = StaffHide;
+        document.getElementById('id_Staff_Choice').onchange = StaffHide;
+        // document.getElementById('id_Room').onchange = Hide;
+        document.getElementById('id_Whatsapp_Choice').onchange = Hide;
+        document.getElementById('id_Whatsapp_Choice').onchange = Hide;
+        
+    };
+</script>
+
+         <!-- {{form}} -->
+<center>
+<div class ="col-md-6 mx-auto">               
+        <h1>Occupant Details</h1>
+</div>
+</center>
+
+<div class="container">
+    <div class="row">
+            <div class ="col-md-6 mx-auto bg-light">
+                    
+                            <form action="" method="POST" enctype="multipart/form-data">
+                                    {% csrf_token %}
+                                    
+
+                                    {% bootstrap_form occ_form %}
+                                    
+                                    <!-- {{form.as_table}} -->
+                                    <!-- <hr> -->
+                                    <p><input type="submit" value="Save Details" class="btn btn-primary"></p>
+                                    <!-- </hr> -->
+                                    
+                                   
+
+                                    
+
+                            </form>
+                    
+            </div>
+    </div>
+</div>
+
+
+
+{% if status %}
+    <script>
+            alert("{{status}}")
+    </script>
+{% endif %}
+
+{% if errorStatus %}
+    <script>
+            alert("{{errorStatus}}")
+    </script>
+{% endif %}
+
+{% endblock %}

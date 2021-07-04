@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PRANAMS</title>
+    <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.min.css'%}"/>
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <nav class="navbar-nav navbar-expand bg-dark navbar-dark">
+                    <a href="" class="navbar-brand">PRANAMS</a>
+                    <ul class="navbar-nav ">
+                        <li class="nav-item">
+                            <a href="{% url 'demography'%}" class="nav-link">Demography Details</a>
+                        </li> 
+                        <li class="nav-item"> 
+                            <a href="{% url 'occupant' %} " class="nav-link">Occupant Details</a>
+                        </li> 
+                        <li class="nav-item">
+                            <a href="{% url 'vehicle' %}" class="nav-link">Vehicle Details</a>
+                        </li>
+
+                    </ul>
+                </nav>
+            </div>
+
+        </div>
+
+    </div>
+    {% block  myblock %}
+    {% endblock %}
+
+</body>
+</html>

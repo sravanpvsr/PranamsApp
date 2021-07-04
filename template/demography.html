@@ -1,0 +1,118 @@
+{% extends "base.html" %}
+{% load bootstrap4 %}
+{% block  myblock %}
+
+
+
+         <!-- {{form}} -->
+<center>
+<div class ="col-md-6 mx-auto">               
+        <h1>Demography Details</h1>
+</div>
+</center>            
+
+<script>
+        function Hide() {
+            if(document.getElementById('id_Room').options[document.getElementById('id_Room').selectedIndex].value) {
+                 document.getElementById('id_Address_Outside_PSN').disabled = true;
+                 document.getElementById('id_Room_Type').disabled = false;
+            }
+            else if (! document.getElementById('id_Room').options[document.getElementById('id_Room').selectedIndex].value){
+                document.getElementById('id_Address_Outside_PSN').disabled = false;  
+                document.getElementById('id_Room_Type').disabled = true;
+            }
+         else if (document.getElementById('id_Whatsapp_Choice_0').checked== true){
+                document.getElementById('id_Member_Whatsapp').disabled = true;
+         }
+
+         else {
+                //  document.getElementById('id_list1').style.display = '';
+                //  document.getElementById('id_list2').style.display = 'none';
+            }
+        }
+            function MemberHide() {
+         if(document.getElementById('id_Member_Category').options[document.getElementById('id_Member_Category').selectedIndex].value == "A") {
+                document.getElementById('id_Staff_Designation').disabled = true;
+                document.getElementById('id_Staff_Institution_Emp_ID').disabled = true;
+                document.getElementById('id_Institution_Name').disabled = true;
+                document.getElementById('id_Sub_Division_Name').disabled = true;
+                document.getElementById('id_Staff_Working_Since').disabled = true;
+         }
+
+        
+
+         else {
+                document.getElementById('id_Staff_Designation').disabled = false;
+                document.getElementById('id_Staff_Institution_Emp_ID').disabled = false;
+                document.getElementById('id_Institution_Name').disabled = false;
+                document.getElementById('id_Sub_Division_Name').disabled = false;
+                document.getElementById('id_Staff_Working_Since').disabled = false;
+                //  document.getElementById('id_list1').style.display = '';
+                //  document.getElementById('id_list2').style.display = 'none';
+            }
+        }
+
+        function Whatsapp(){
+                if (document.getElementById('id_Whatsapp_Choice_0').checked== true){
+                        document.getElementById('id_Member_Whatsapp').disabled = true;
+         }
+
+         else if(document.getElementById('id_Whatsapp_Choice_1').checked = true){
+                document.getElementById('id_Member_Whatsapp').disabled = false;
+         }
+          
+        }
+
+        
+        
+        window.onload = function() {
+            document.getElementById('id_Member_Category').onchange = MemberHide;
+            document.getElementById('id_Room').onchange = Hide;
+            document.getElementById('id_Whatsapp_Choice_0').onchange = Whatsapp;
+            document.getElementById('id_Whatsapp_Choice_1').onchange = Whatsapp;
+            
+        };
+</script>
+
+<div class="container">
+        <div class="row">
+                <div class ="col-md-6 mx-auto bg-light">
+                        
+                                <form action="" method="POST" enctype="multipart/form-data">
+                                        {% csrf_token %}
+                                        
+
+                                        {% bootstrap_form form %}
+                                        
+                                        <!-- {{form.as_table}} -->
+                                        <!-- <hr> -->
+                                        <p><input type="submit" value="Save Details" class="btn btn-primary"></p>
+                                        <!-- </hr> -->
+                                        
+                                       
+
+                                        
+
+                                </form>
+                        
+                </div>
+        </div>
+</div>
+
+
+
+{% if status %}
+        <script>
+                alert("{{status}}")
+        </script>
+{% endif %}
+
+{% if errorStatus %}
+        <script>
+                alert("{{errorStatus}}")
+        </script>
+{% endif %}
+
+
+
+{% endblock %}

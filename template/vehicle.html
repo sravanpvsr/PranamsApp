@@ -1,0 +1,97 @@
+{% extends "base.html" %}
+{% load bootstrap4 %}
+{% block  myblock %}
+
+<script>
+    
+    function VehicleHide() {
+     if(document.getElementById('id_Vehicle_Available').options[document.getElementById('id_Vehicle_Available').selectedIndex].value == "no") {
+            document.getElementById('id_Member_Occupant').disabled = true;
+            document.getElementById('id_Vehicle_No').disabled = true;
+            document.getElementById('id_Two_Four_Wheeler').disabled = true;
+            document.getElementById('id_RC_No').disabled = true;
+            document.getElementById('id_RC_Valid_Upto').disabled = true;
+            document.getElementById('id_Insurance_Valid_Upto').disabled = true;
+            document.getElementById('id_Entry_Extended_By').disabled = true;
+            document.getElementById('id_Remarks').disabled = true;
+            document.getElementById('id_DL_No').disabled = true;
+            document.getElementById('id_DL_Validity').disabled = true;
+            document.getElementById('id_submit').disabled=true
+        }
+
+    
+
+     else {
+            document.getElementById('id_Member_Occupant').disabled = false;
+            document.getElementById('id_Vehicle_No').disabled = false;
+            document.getElementById('id_Two_Four_Wheeler').disabled = false;
+            document.getElementById('id_RC_No').disabled = false;
+            document.getElementById('id_RC_Valid_Upto').disabled = false;
+            document.getElementById('id_Insurance_Valid_Upto').disabled = false;
+            document.getElementById('id_Entry_Extended_By').disabled = false;
+            document.getElementById('id_Remarks').disabled = false;
+            document.getElementById('id_DL_No').disabled = false;
+            document.getElementById('id_DL_Validity').disabled = false;
+            document.getElementById('id_submit').disabled=false
+            //  document.getElementById('id_list1').style.display = '';
+            //  document.getElementById('id_list2').style.display = 'none';
+        }
+    }
+
+    
+
+    
+    
+    window.onload = function() {
+        document.getElementById('id_Vehicle_Available').onchange = VehicleHide;
+        
+        
+    };
+</script>
+
+<center>
+    <div class ="col-md-6 mx-auto">               
+            <h1>Vehicle Details</h1>
+    </div>
+    </center>
+    
+    <div class="container">
+        <div class="row">
+                <div class ="col-md-6 mx-auto bg-light">
+                        
+                                <form action="" method="POST" enctype="multipart/form-data">
+                                        {% csrf_token %}
+                                        
+    
+                                        {% bootstrap_form vehicle_form %}
+                                        
+                                        <!-- {{form.as_table}} -->
+                                        <!-- <hr> -->
+                                        <p><input id="id_submit" type="submit" value="Save Details" class="btn btn-primary"></p>
+                                        <!-- </hr> -->
+                                        
+                                       
+    
+                                        
+    
+                                </form>
+                        
+                </div>
+        </div>
+    </div>
+    
+    
+    
+    {% if status %}
+        <script>
+                alert("{{status}}")
+        </script>
+    {% endif %}
+    
+    {% if errorStatus %}
+        <script>
+                alert("{{errorStatus}}")
+        </script>
+    {% endif %}
+    
+    {% endblock %}
