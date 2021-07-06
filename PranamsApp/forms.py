@@ -1,10 +1,11 @@
 from django import forms
 from django.core.validators import EMPTY_VALUES
+
 #from django.utils.safestring import mark_safe
 import re
 
-from PranamsApp.models import Member_Category_Master,Institution_Master,Sub_Division_Master,Institution_Sub_Division_Map,Member_Master,Room_Type_Master,Room_Master,Occupant_Master,Gate_Master,Vehicle_Gate_Map,add_demography,add_vehicle
-from PranamsApp.serializers import Member_Category_Master_Serializer,Institution_Master_Serializer,Sub_Division_Master_Serializer,Institution_Sub_Division_Map_Serializer,Member_Master_Serializer,Room_Type_Master_Serializer,Room_Master_Serializer,Occupant_Master_Serializer,Gate_Master_Serializer,Vehicle_Gate_Map_Serializer
+from PranamsApp.models import Member_Category_Master,Institution_Master,Sub_Division_Master,Institution_Sub_Division_Map,Member_Master,Room_Type_Master,Room_Master,Occupant_Master,Gate_Master,add_demography,add_vehicle
+from PranamsApp.serializers import Member_Category_Master_Serializer,Institution_Master_Serializer,Sub_Division_Master_Serializer,Institution_Sub_Division_Map_Serializer,Member_Master_Serializer,Room_Type_Master_Serializer,Room_Master_Serializer,Occupant_Master_Serializer,Gate_Master_Serializer
 
 class add_demography_form(forms.ModelForm):
     def __init__(self, *args, **kwargs):
@@ -35,8 +36,13 @@ class add_demography_form(forms.ModelForm):
     #     def render(self):
     #         return mark_safe(u'\n'.join([u'%s\n' % w for w in self]))
     
-    Whatsapp_Choice = forms.ChoiceField(label="Does the above no. have Whatsapp?",choices=CHOICES, 
-            widget=forms.RadioSelect()) 
+    # Whatsapp_Choice = forms.ChoiceField(label="Does the above no. have Whatsapp?",choices=CHOICES, 
+    #         widget=forms.RadioSelect()) 
+    DATE_INPUT_FORMATS = ['%d-%m-%Y']
+    DOB = forms.DateField(input_formats= DATE_INPUT_FORMATS)
+
+    # Staff_Working_Since =forms.DateField( 
+    #      input_formats= DATE_INPUT_FORMATS)
 
     # Staff_Choice = forms.ChoiceField(label="Is the member a Staff?",choices=CHOICES, 
     #         widget=forms.RadioSelect()) 
@@ -69,9 +75,9 @@ class add_demography_form(forms.ModelForm):
                 'Mobile Number should contain 10 digits'])
         
         
-        if len(str(Address_Outside_PSN)) < 50:
-            self._errors['Address_Outside_PSN'] = self.error_class([
-                'Minimum length is 50 characters'])
+        # if len(str(Address_Outside_PSN)) < 50:
+        #     self._errors['Address_Outside_PSN'] = self.error_class([
+        #         'Minimum length is 50 characters'])
         
         if len(str(Emergency_Contact_Address)) < 50:
             self._errors['Emergency_Contact_Address'] = self.error_class([
@@ -123,6 +129,16 @@ class add_occupant_form(forms.ModelForm):
         ('yes','Yes'),
         ('no','No')
     )
+    DATE_INPUT_FORMATS = ['%d-%m-%Y']
+    DOB = forms.DateField(label='Date of Birth', 
+        input_formats= DATE_INPUT_FORMATS)
+    # Staff_Working_Since =forms.DateField( 
+    #     input_formats= DATE_INPUT_FORMATS)
+
+
+
+
+
     # class HorizontalRadioRenderer(forms.RadioSelect):
     #     def render(self):
     #         return mark_safe(u'\n'.join([u'%s\n' % w for w in self]))
@@ -216,6 +232,11 @@ class add_vehicle_form(forms.ModelForm):
     ('member','Member'),
     ('occupant','Occupant')
     )
+
+    DATE_INPUT_FORMATS = ['%d-%m-%Y']
+    DL_Validity=forms.DateField(input_formats= DATE_INPUT_FORMATS)
+    RC_Valid_Upto=forms.DateField(input_formats= DATE_INPUT_FORMATS)
+    Insurance_Valid_Upto=forms.DateField(input_formats= DATE_INPUT_FORMATS)
     
     # class HorizontalRadioRenderer(forms.RadioSelect):
     #     def render(self):
@@ -226,8 +247,8 @@ class add_vehicle_form(forms.ModelForm):
     
     # Member_Occupant = forms.ChoiceField(label="Vehicle belongs to Member or the Occupant?",choices=MEMBER_CHOICES, 
     #         widget=forms.RadioSelect())
-    Gate_Name=forms.ModelMultipleChoiceField(queryset=Gate_Master.objects.all(),
-            widget=forms.CheckboxSelectMultiple)
+    # Gate_Name=forms.ModelMultipleChoiceField(queryset=Gate_Master.objects.all(),
+    #         widget=forms.CheckboxSelectMultiple)
 
     
 

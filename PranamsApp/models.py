@@ -250,45 +250,45 @@ class Occupant_Master(models.Model):
 #     Status=models.CharField(max_length=2,default='Y')
 
 class add_demography(models.Model):
-    Room=models.ForeignKey(Room_Master, on_delete=models.CASCADE, blank=True)
+    Room=models.ForeignKey(Room_Master, on_delete=models.CASCADE, blank=True,null=True)
     Member_Occupant= models.CharField(max_length=15, choices=MEMBER_CHOICES)
-    Category=models.ForeignKey(Member_Category_Master, on_delete=models.CASCADE,blank=True)
-    Relationship_With_Primary_Member=models.CharField(max_length=20, choices=RELATIONSHIP_CHOICES)
-    Permanent_Resident_Or_Not=models.CharField(blank=True,max_length=5, choices=CHOICES)
-    Room_Type=models.ForeignKey(Room_Type_Master, on_delete=models.CASCADE, null=True)
+    Category=models.ForeignKey(Member_Category_Master, on_delete=models.CASCADE,blank=True,null=True)
+    Relationship_With_Primary_Member=models.CharField(max_length=20, choices=RELATIONSHIP_CHOICES,null=True,blank=True)
+    Permanent_Resident_Or_Not=models.CharField(blank=True,max_length=5, choices=CHOICES,null=True)
+    Room_Type=models.ForeignKey(Room_Type_Master, on_delete=models.CASCADE, blank=True,null=True)
     Name=models.CharField(max_length=100)
-    DOB=models.DateField(blank=True)
-    Blood_Group=models.CharField(max_length=3, choices=BLOOD_GROUP_CHOICES,blank=True)
-    Institution_Name=models.ForeignKey(Institution_Master, on_delete=models.CASCADE, blank=True)
-    Sub_Division_Name=models.ForeignKey(Sub_Division_Master, on_delete=models.CASCADE, blank=True)
-    Staff_Working_Since=models.DateField(blank=True)
-    Staff_Designation=models.CharField(max_length=50, blank=True)
-    Staff_Institution_Emp_ID=models.CharField(max_length=20, blank=True)
-    Mobile=models.IntegerField()
-    Whatsapp_Choice = models.CharField(max_length=5, choices=CHOICES)
-    Whatsapp=models.IntegerField(blank=True)    
+    DOB=models.DateField(blank=True,null=True)
+    Aadhaar_ID=models.IntegerField()
+    Blood_Group=models.CharField(max_length=3, choices=BLOOD_GROUP_CHOICES,blank=True,null=True)
+    Institution_Name=models.ForeignKey(Institution_Master, on_delete=models.CASCADE, blank=True,null=True)
+    Sub_Division_Name=models.ForeignKey(Sub_Division_Master, on_delete=models.CASCADE, blank=True,null=True)
+    Staff_Working_Since=models.DateField(blank=True, null=True)
+    Staff_Designation=models.CharField(max_length=50, blank=True,null=True)
+    Staff_Institution_Emp_ID=models.CharField(max_length=20, blank=True,null=True)
+    Mobile=models.IntegerField(blank=True,null=True)
+    Whatsapp_Choice = models.CharField(max_length=5, choices=CHOICES,blank=True,null=True)
+    Whatsapp=models.IntegerField(blank=True,null=True)    
     #Staff_Choice = models.CharField(max_length=5, choices=CHOICES)     
-    Aadhaar_ID=models.IntegerField(blank=True)
     #Member_DL_No=models.CharField(max_length=50)
     #Member_DL_Validity=models.DateField()    
-    Address_Outside_PSN=models.CharField(max_length=200, blank=True)
-    Emergency_Contact_Name=models.CharField(max_length=40)
-    Emergency_Contact_Email=models.CharField(max_length=40)
-    Emergency_Contact_Relationship=models.CharField(max_length=20, choices=RELATIONSHIP_CHOICES)
-    Emergency_Contact_ISD=models.CharField(max_length=20)
-    Emergency_Contact_Mobile_No=models.IntegerField()
-    Emergency_Contact_Address=models.CharField(max_length=200)
-    Photo_File_Name=models.ImageField(upload_to="media")
+    Address_Outside_PSN=models.CharField(max_length=200, blank=True,null=True)
+    Emergency_Contact_Name=models.CharField(max_length=40, blank=True,null=True)
+    Emergency_Contact_Email=models.CharField(max_length=40, blank=True,null=True)
+    Emergency_Contact_Relationship=models.CharField(max_length=20, choices=RELATIONSHIP_CHOICES, blank=True,null=True)
+    Emergency_Contact_ISD=models.CharField(max_length=20, blank=True,null=True)
+    Emergency_Contact_Mobile_No=models.IntegerField( blank=True,null=True)
+    Emergency_Contact_Address=models.CharField(max_length=200, blank=True,null=True)
+    Photo_File_Name=models.ImageField(upload_to="", blank=True,null=True)
     Updated_Date=models.DateTimeField(auto_now_add = True)
     Updated_By=models.CharField(max_length=10,default='Admin')
     Status=models.CharField(max_length=2,default='Y')
-    
+
 
 class add_vehicle(models.Model):
     Room=models.ForeignKey(Room_Master, on_delete=models.CASCADE)
     Vehicle_Available=models.CharField(max_length=3, choices=CHOICES)
     Member_Occupant=models.CharField(max_length=15,choices=MEMBER_CHOICES)
-    #Member_Name=models.ForeignKey(Member_Master,on_delete=models.CASCADE)
+    #Name=models.ForeignKey(add_demography,on_delete=models.CASCADE)
     #Member_PRANAMS_ID=models.ForeignKey(Member_Master, on_delete=models.CASCADE)
     #Occupant_Name=models.ForeignKey(Occupant_Master, on_delete=models.CASCADE)
     #Vehicle_PRANAMS_ID=models.CharField(primary_key=True,max_length=10)
@@ -305,21 +305,16 @@ class add_vehicle(models.Model):
     Updated_Date=models.DateTimeField(auto_now_add = True)
     Updated_By=models.CharField(max_length=20)
     Status=models.CharField(max_length=1)
-    Gate_Name=models.ManyToManyField('Gate_Master')
-    
+    Gate_Name=models.ManyToManyField(Gate_Master)
 
     def __str__(self):
         return self.name
     
 
-class Vehicle_Gate_Map(models.Model):
-    Vehicle_PRANAMS_ID=models.ForeignKey(add_vehicle, on_delete=models.CASCADE)
-    Gate_ID=models.ForeignKey(Gate_Master, on_delete=models.CASCADE)
-    Updated_Date=models.DateField()
-    Updated_By=models.CharField(max_length=20)
-    Status=models.CharField(max_length=1)
-
-
+# class add_vehicle_Gate_Name(models.Model):
+#      Vehicle_PRANAMS_ID=models.ForeignKey(add_vehicle, on_delete=models.CASCADE)
+#      Gate_ID=models.ForeignKey(Gate_Master, on_delete=models.CASCADE)
+    
 
 
 

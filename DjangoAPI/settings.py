@@ -34,6 +34,8 @@ SECRET_KEY = 'django-insecure-9#n&qx8tw7&wa@#3o$-fxkhhkc4krzu8ragk)xt-&0l)v=op1@
 DEBUG = True
 
 ALLOWED_HOSTS = ['192.168.29.240']
+LANGUAGE_CODE ='en-GB'
+
 
 
 # Application definition
