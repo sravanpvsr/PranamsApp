@@ -1,8 +1,32 @@
 {% extends "base.html" %}
 {% load bootstrap4 %}
 {% block  myblock %}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
-<script>
+
+
+<style>
+
+#id_Room{
+   padding:5px;
+   width:100%;
+}
+#id_Vehicle_Available{
+   padding:5px;
+   width:100%;
+}
+#id_Member_Occupant{
+   padding:5px;
+   width:100%;
+}
+#id_Two_Four_Wheeler{
+   padding:5px;
+   width:100%;
+}
+
+</style>
+
+<!-- <script>
     
     function VehicleHide() {
      if(document.getElementById('id_Vehicle_Available').options[document.getElementById('id_Vehicle_Available').selectedIndex].value == "no") {
@@ -18,9 +42,7 @@
             document.getElementById('id_DL_Validity').disabled = true;
             document.getElementById('id_submit').disabled=true
         }
-
     
-
      else {
             document.getElementById('id_Member_Occupant').disabled = false;
             document.getElementById('id_Vehicle_No').disabled = false;
@@ -37,17 +59,14 @@
             //  document.getElementById('id_list2').style.display = 'none';
         }
     }
-
     
-
-    
-    
+        
     window.onload = function() {
         document.getElementById('id_Vehicle_Available').onchange = VehicleHide;
         
         
     };
-</script>
+</script> -->
 
 <center>
     <div class ="col-md-6 mx-auto">               
@@ -59,18 +78,115 @@
         <div class="row">
                 <div class ="col-md-6 mx-auto bg-light">
                         
-                                <form action="" method="POST" enctype="multipart/form-data">
-                                        {% csrf_token %}
+      <form action="" method="POST" enctype="multipart/form-data">
+         {% csrf_token %}
                                         
-    
-                                        {% bootstrap_form vehicle_form %}
-                                        
-                                        <!-- {{form.as_table}} -->
-                                        <!-- <hr> -->
-                                        <p><input id="id_submit" type="submit" value="Save Details" class="btn btn-primary"></p>
-                                        <!-- </hr> -->
-                                        
-                                       
+                                            <!-- Room Field -->
+                                            <div class="form-group">
+                                              <label for="exampleInputEmail1">{{vehicle_form.Room.label}}</label>
+                                              
+                                              {{vehicle_form.Room}}
+                                              
+                                             <!-- Member_Occupant -->
+                                             <div class="form-group">
+                                                <label for="exampleInputEmail1">{{vehicle_form.Member_Occupant.label}}</label>
+                                                
+                                                {{vehicle_form.Member_Occupant}}
+                                               
+                                              </div>  
+                                              
+                                               <!-- Name Field -->
+                                                       
+                                              <div id="id_city">
+
+                                              </div>
+
+                                              <!-- Vehicle_No -->
+                                             <div class="form-group">
+                                                <label for="exampleInputEmail1">{{vehicle_form.Vehicle_No.label}}</label>    
+                                                <input type="text" name="Vehicle_No" class="form-control"placeholder="Enter Vehicle No">
+                                             
+                                             </div> 
+
+                                             <!-- Two_Four_Wheeler -->
+                                             <div class="form-group">
+                                                <label for="exampleInputEmail1">{{vehicle_form.Two_Four_Wheeler.label}}</label>    
+                                               
+                                                {{vehicle_form.Two_Four_Wheeler}}
+                                               
+                                             
+                                             </div> 
+
+                                              <!-- DL_No -->
+                                              <div class="form-group">
+                                                <label for="exampleInputEmail1">{{vehicle_form.DL_No.label}}</label>    
+                                                <input type="text" name="DL_No" class="form-control"placeholder="Enter DL No">
+                                             
+                                             </div>
+                                             <!-- DL_Validity -->
+                                             <div class="form-group">
+                                                <label for="exampleInputEmail1">{{vehicle_form.DL_Validity.label}}</label>    
+                                                <input type="text" name="DL_Validity" class="form-control"placeholder="Enter DL Validity">
+                                             
+                                             </div>       
+                                             
+                                             
+                                              
+                                               
+
+                                              <!-- RC_Valid_Upto -->
+                                             
+                                             <div class="form-group">
+                                                <label for="exampleInputEmail1">{{vehicle_form.RC_Valid_Upto.label}}</label>    
+                                                <input type="text" name="RC_Valid_Upto" class="form-control"placeholder=" RC Valid Upto">
+                                             
+                                             </div> 
+                                             <!-- Insurance_Valid_Upto -->
+
+
+                                             <div class="form-group">
+                                                <label>{{vehicle_form.Insurance_Valid_Upto.label}}</label>    
+                                                <input type="text" name="Insurance_Valid_Upto" class="form-control"placeholder="Insurance Valid Upto">
+                                             
+                                             </div> 
+
+                                             <!-- Sticker Number -->
+
+
+                                             <div class="form-group">
+                                                <label>{{vehicle_form.Existing_Sticker_Number.label}}</label>    
+                                                <input type="text" name="Existing_Sticker_Number" class="form-control"placeholder="Existing Sticker Number">
+                                             
+                                             </div> 
+
+
+                                             <!-- Remarks  -->
+
+                                             <div class="form-group">
+                                                <label>{{vehicle_form.Remarks.label}}</label>    
+                                                <input type="text" name="Remarks" class="form-control"placeholder="Remarks">
+                                             
+                                             </div> 
+                                         
+
+                                             <!-- Gate_Name -->
+                                             <div class="form-group">
+                                                <label>{{vehicle_form.Gate_Name.label}}</label> 
+                                                {{vehicle_form.Gate_Name}}   
+                                                
+                                             
+                                             </div> 
+                                             
+                                             <p><input id="id_submit" type="submit" value="Save Details" class="btn btn-primary"></p>
+                                            </div>
+
+   
+                                              </div>
+                                             
+
+
+                                             
+                                          </form>        
     
                                         
     
@@ -79,9 +195,58 @@
                 </div>
         </div>
     </div>
+        
+
+                           
+    <script>
+ $("#id_Member_Occupant").change(function () { 
+
+        console.log("change")
+
+        const url='{% url "vehicle" %}'
+        const Member_Occupant=$(this).val();
+        const Room=$("#id_Room").val();
+
+        $.ajax({                       // initialize an AJAX request
+            url: url,                    // set the url of the request (= /vehicle/ )
+            data: {
+                'Member_Occupant': Member_Occupant,
+                 'Room':Room      // add Room  to the GET parameters
+            },
+            success: function (data) {   
+                
+                //$("#id_city").html(data); 
+
+
+                 let html_data = '<option value=""></option>';
+                 html_data='<label>Name</label>';
+                 html_data +='<select name="Member_Name" class="form-control">'
+                 data.forEach(function (name) {
+                     
+                     html_data += `<option name="Member_Name">${name}</option>`
+                    
+                 });
+                 html_data +='</select>'
+                 
+                 $("#id_city").html(html_data);
+
+            
+            }
+        });
+
+
+
+
+
+     });
     
-    
-    
+
+
+
+
+ 
+      </script>
+   
     {% if status %}
         <script>
                 alert("{{status}}")

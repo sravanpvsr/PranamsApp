@@ -20,24 +20,12 @@
 
     function StaffHide() {
      if(document.getElementById('id_Member_Occupant').options[document.getElementById('id_Member_Occupant').selectedIndex].value == "occupant") {
-            document.getElementById('id_Staff_Designation').disabled = true;
             document.getElementById('id_Staff_Institution_Emp_ID').disabled = true;
             document.getElementById('id_Institution_Name').disabled = true;
             document.getElementById('id_Sub_Division_Name').disabled = true;
             document.getElementById('id_Staff_Working_Since').disabled = true;
-            document.getElementById('id_Mobile').disabled = true
-            document.getElementById('id_Whatsapp_Choice').disabled = true;
-            document.getElementById('id_Whatsapp').disabled = true;
-            document.getElementById('id_Photo_File_Name').disabled = true;
-            document.getElementById('id_Emergency_Contact_Name').disabled = true;
-            document.getElementById('id_Emergency_Contact_Email').disabled = true;
-            document.getElementById('id_Emergency_Contact_Relationship').disabled = true;
-            document.getElementById('id_Emergency_Contact_ISD').disabled = true;
-            document.getElementById('id_Emergency_Contact_Mobile_No').disabled = true;
-            document.getElementById('id_Emergency_Contact_Address').disabled = true;
             document.getElementById('id_Category').disabled = true;
-            document.getElementById('id_Blood_Group').disabled = true;
-            document.getElementById('id_Permanent_Resident_Or_Not').disabled = false;
+            
             
             
         }
@@ -45,24 +33,12 @@
     
 
      else  {
-            document.getElementById('id_Staff_Designation').disabled = false;
             document.getElementById('id_Staff_Institution_Emp_ID').disabled = false;
             document.getElementById('id_Institution_Name').disabled = false;
             document.getElementById('id_Sub_Division_Name').disabled = false;
             document.getElementById('id_Staff_Working_Since').disabled = false;
-            document.getElementById('id_Mobile').disabled = false;
-            document.getElementById('id_Whatsapp_Choice').disabled = false;
-            document.getElementById('id_Whatsapp').disabled = false;
-            document.getElementById('id_Photo_File_Name').disabled = false;
-            document.getElementById('id_Emergency_Contact_Name').disabled = false;
-            document.getElementById('id_Emergency_Contact_Email').disabled = false;
-            document.getElementById('id_Emergency_Contact_Relationship').disabled = false;
-            document.getElementById('id_Emergency_Contact_ISD').disabled = false;
-            document.getElementById('id_Emergency_Contact_Mobile_No').disabled = false;
-            document.getElementById('id_Emergency_Contact_Address').disabled = false;
             document.getElementById('id_Category').disabled = false;
-            document.getElementById('id_Blood_Group').disabled = false;
-            document.getElementById('id_Permanent_Resident_or_Not').disabled = true;
+            
             //  document.getElementById('id_list1').style.display = '';
             //  document.getElementById('id_list2').style.display = 'none';
         }

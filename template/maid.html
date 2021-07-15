@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+{% load bootstrap4 %}
+{% block  myblock %}
+
+
+
+         <!-- {{form}} -->
+<center>
+<div class ="col-md-6 mx-auto">               
+        <h1>Maid Details</h1>
+</div>
+</center>            
+
+
+
+<div class="container">
+        <div class="row">
+                <div class ="col-md-6 mx-auto bg-light">
+                        
+                                <form action="" method="POST" enctype="multipart/form-data">
+                                        {% csrf_token %}
+                                        
+
+                                        {% bootstrap_form maid_form %}
+                                        
+                                        <!-- {{form.as_table}} -->
+                                        <!-- <hr> -->
+                                        <p><input type="submit" value="Save Details" class="btn btn-primary"></p>
+                                        <!-- </hr> -->
+                                        
+                                       
+
+                                        
+
+                                </form>
+                        
+                </div>
+        </div>
+</div>
+
+
+
+{% if status %}
+        <script>
+                alert("{{status}}")
+        </script>
+{% endif %}
+
+{% if errorStatus %}
+        <script>
+                alert("{{errorStatus}}")
+        </script>
+{% endif %}
+
+
+
+{% endblock %}

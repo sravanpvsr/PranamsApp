@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from PranamsApp.models import Member_Category_Master,Institution_Master,Sub_Division_Master,Institution_Sub_Division_Map,Member_Master,Room_Type_Master,Room_Master,Occupant_Master,Gate_Master
+from PranamsApp.models import Member_Category_Master,Institution_Master,Sub_Division_Master,Institution_Sub_Division_Map,Room_Type_Master,Room_Master,Gate_Master
 
 class Member_Category_Master_Serializer(serializers.ModelSerializer):
     class Meta:
@@ -37,36 +37,36 @@ class Institution_Sub_Division_Map_Serializer(serializers.ModelSerializer):
         'Updated_By',
         'Status')
 
-class Member_Master_Serializer(serializers.ModelSerializer):
-    class Meta:
-        model = Member_Master
-        fields=('Member_PRANAMS_ID',
-        'Member_Name',
-        'Member_Photo_File_Name',
-        'Member_Type',
-        'Member_Aadhaar_ID',
-        'Member_Photo',
-        'Member_DOB',
-        'Member_Mobile',
-        'Member_Whatsapp',
-        'Member_Blood_Group',
-        'Staff_Institution_ID',
-        'Staff_Sub_Division_ID',
-        'Staff_Designation',
-        'Staff_Working_Since',
-        'Staff_Institutuon_Emp_ID',
-        'Updated_Date',
-        'Updated_By',
-        'Status',
-        'Member_Category_ID',
-        'Address_Outside_PSN',
-        'Emergency_Contact_Name',
-        'Emergency_Contact_Email',
-        'Emergency_Contact_Relationship',
-        'Emergency_Contact_ISD',
-        'Emergency_Contact_Mobile_No',
-        'Emergency_Contact_Address',
-        'Member_DL_Validity')
+# class Member_Master_Serializer(serializers.ModelSerializer):
+#     class Meta:
+#         model = Member_Master
+#         fields=('Member_PRANAMS_ID',
+#         'Member_Name',
+#         'Member_Photo_File_Name',
+#         'Member_Type',
+#         'Member_Aadhaar_ID',
+#         'Member_Photo',
+#         'Member_DOB',
+#         'Member_Mobile',
+#         'Member_Whatsapp',
+#         'Member_Blood_Group',
+#         'Staff_Institution_ID',
+#         'Staff_Sub_Division_ID',
+#         'Staff_Designation',
+#         'Staff_Working_Since',
+#         'Staff_Institutuon_Emp_ID',
+#         'Updated_Date',
+#         'Updated_By',
+#         'Status',
+#         'Member_Category_ID',
+#         'Address_Outside_PSN',
+#         'Emergency_Contact_Name',
+#         'Emergency_Contact_Email',
+#         'Emergency_Contact_Relationship',
+#         'Emergency_Contact_ISD',
+#         'Emergency_Contact_Mobile_No',
+#         'Emergency_Contact_Address',
+#         'Member_DL_Validity')
 
 class Room_Type_Master_Serializer(serializers.ModelSerializer):
     class Meta:
@@ -95,21 +95,21 @@ class Room_Master_Serializer(serializers.ModelSerializer):
 #         'Updated_By',
 #         'Status')
 
-class Occupant_Master_Serializer(serializers.ModelSerializer):
-    class Meta:
-        model = Occupant_Master
-        fields=('Member_PRANAMS_ID',
-        'Occ_Name',
-        'Occ_DOB',
-        'Occ_Relationship',
-        'Occ_Permanent_Resident_Not',
-        'Occ_Aadhaar_ID',
-        'Occupant_PRANAMS_ID',
-        'Occ_DL_No',
-        'Status',
-        'Updated_Date',
-        'Updated_By',
-        'Status')
+# class Occupant_Master_Serializer(serializers.ModelSerializer):
+#     class Meta:
+#         model = Occupant_Master
+#         fields=('Member_PRANAMS_ID',
+#         'Occ_Name',
+#         'Occ_DOB',
+#         'Occ_Relationship',
+#         'Occ_Permanent_Resident_Not',
+#         'Occ_Aadhaar_ID',
+#         'Occupant_PRANAMS_ID',
+#         'Occ_DL_No',
+#         'Status',
+#         'Updated_Date',
+#         'Updated_By',
+#         'Status')
 
 # class Vehicle_Master_Serializer(serializers.ModelSerializer):
 #     class Meta:

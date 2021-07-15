@@ -2,11 +2,13 @@ from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
 from rest_framework.parsers import JSONParser
 from django.http.response import JsonResponse
+import json
+from django.http import HttpResponse
 
 
-from PranamsApp.models import Member_Category_Master,Institution_Master,Sub_Division_Master,Institution_Sub_Division_Map,Member_Master,Room_Type_Master,Room_Master,Occupant_Master,Gate_Master,add_demography
-from PranamsApp.serializers import Member_Category_Master_Serializer,Institution_Master_Serializer,Sub_Division_Master_Serializer,Institution_Sub_Division_Map_Serializer,Member_Master_Serializer,Room_Type_Master_Serializer,Room_Master_Serializer,Occupant_Master_Serializer,Gate_Master_Serializer
-from PranamsApp.forms import add_demography_form, add_occupant_form, add_vehicle_form
+from PranamsApp.models import Member_Category_Master,Institution_Master,Sub_Division_Master,Institution_Sub_Division_Map,Room_Type_Master,Room_Master,Gate_Master,add_demography, add_vehicle,add_maid,add_emergency,add_maintenance
+from PranamsApp.serializers import Member_Category_Master_Serializer,Institution_Master_Serializer,Sub_Division_Master_Serializer,Institution_Sub_Division_Map_Serializer,Room_Type_Master_Serializer,Room_Master_Serializer,Gate_Master_Serializer
+from PranamsApp.forms import add_demography_form, add_occupant_form, add_vehicle_form,add_maid_form, add_emergency_form,add_maintenance_form
 
 from django.core.files.storage import default_storage
 
@@ -101,28 +103,120 @@ def occupant(request):
     return render(request,"occupant.html",
     context)
     
-def vehicle(request):
-    context={}
-    vehicle_form=add_vehicle_form()
+# def vehicle(request):
+#     context={}
+#     vehicle_form=add_vehicle_form()
 
+#     # if request.method=='GET':
+#     #     institution = Institution_Master.objects.all()
+#     #     institution_serializer = Institution_Master_Serializer(institution, many=True)
+#     #     return JsonResponse(institution_serializer.data, safe=False)
+
+#     if request.method=="POST":
+#         vehicle_form=add_vehicle_form(request.POST,request.FILES)
+#         if vehicle_form.is_valid():
+            
+#             data=vehicle_form.save()
+#             #data=form.save(commit=FALSE)
+#             #data.save()
+#             context["status"]="{} Added Successfully. In case there are more vehicles, please fill the form again".format(data.Vehicle_No)
+#         else:
+#             context["errorStatus"]="Please correct the mistakes and re-submit"
+#             #return render(request, "demography.html", {'form':form})
+
+#     context["vehicle_form"] =vehicle_form
+
+#     return render(request,"vehicle.html",
+#     context)
+
+#Updated - 8-Jul-2021
+def vehicle(request):
+    room_id=request.GET.get('Room')
+    Member_Occupant=request.GET.get('Member_Occupant')
+
+    sat=add_demography.objects.filter(Room=room_id, Status='Y')
+    print(sat)
+    m_names=[]
+    o_names=[]
+    if sat:
+        for s in sat:
+            if Member_Occupant == 'member':
+                if not s.Member_Occupant:
+                    m_names.append(s.Name)
+                else:
+                    pass
+            if Member_Occupant == 'occupant':
+                if s.Member_Occupant:
+                    o_names.append(s.Name)
+                else:
+                    pass    
+   
+    if room_id:
+        if m_names != []:
+        
+            your_list_as_json = json.dumps(m_names)
+            return HttpResponse(your_list_as_json ,content_type ="application/json")
+        else:
+
+            your_list_as_json = json.dumps(o_names)
+            
+            return HttpResponse(your_list_as_json ,content_type ="application/json")                
+
+    context={}
+    vehicle_form=add_vehicle_form()                  
+    #print(obj,sat)
     # if request.method=='GET':
     #     institution = Institution_Master.objects.all()
     #     institution_serializer = Institution_Master_Serializer(institution, many=True)
     #     return JsonResponse(institution_serializer.data, safe=False)
-
+    
     if request.method=="POST":
-        vehicle_form=add_vehicle_form(request.POST,request.FILES)
-        if vehicle_form.is_valid():
+        Room=request.POST.get('Room')
+        Roominstance=Room_Master.objects.get(Room=Room)
+
+
+        Vehicle_Available=request.POST.get('Vehicle_Available')
+        Member_Occupant=request.POST.get('Member_Occupant')
+
+        Member_Name=request.POST.get('Member_Name')
+        memberinstance=add_demography.objects.get(Name=Member_Name)
+
+        DL_No=request.POST.get('DL_No')
+        DL_Validity=request.POST.get('DL_Validity')
+        Two_Four_Wheeler=request.POST.get('Two_Four_Wheeler')
+        Vehicle_No=request.POST.get('Vehicle_No')
+        #RC_No=request.POST.get('RC_No')
+        RC_Valid_Upto=request.POST.get('RC_Valid_Upto')
+        Insurance_Valid_Upto=request.POST.get('Insurance_Valid_Upto')
+        Remarks=request.POST.get('Remarks')
+        Gate_Name=request.POST.getlist('Gate_Name')
+        Existing_Sticker_Number=request.POST.get('Existing_Sticker_Number')
+
+        # print(Room,Vehicle_Available,Member_Occupant,Member_Name,DL_No,DL_Validity,Two_Four_Wheeler,
+        #     Vehicle_No,RC_Valid_Upto,Insurance_Valid_Upto,Remarks,Gate_Name)            
+        vehicle_details=add_vehicle(
+                Room=Roominstance,
+                Member_Occupant=Member_Occupant,
+                Member_Name=memberinstance,
+                DL_No=DL_No,
+                DL_Validity=DL_Validity,
+                Two_Four_Wheeler=Two_Four_Wheeler,
+                Vehicle_No=Vehicle_No,
+                RC_Valid_Upto=RC_Valid_Upto,
+                Insurance_Valid_Upto=Insurance_Valid_Upto,
+                Remarks=Remarks,
+                Existing_Sticker_Number=Existing_Sticker_Number
+
+            )
+
             
-            data=vehicle_form.save()
-            #data=form.save(commit=FALSE)
-            #data.save()
-            context["status"]="{} Added Successfully. In case there are more vehicles, please fill the form again".format(data.Vehicle_No)
-        else:
-            context["errorStatus"]="Please correct the mistakes and re-submit"
-            #return render(request, "demography.html", {'form':form})
+        vehicle_details.save()
+        vehicle_details.Gate_Name.add(*Gate_Name)        
+
 
     context["vehicle_form"] =vehicle_form
+    
+
 
     return render(request,"vehicle.html",
     context)
@@ -135,6 +229,61 @@ def search(request):
     {"add_demography":primaryMemberDisplay,
     #"Room_Master":occupantDisplay
     })
+
+#login method
+def login(request):
+    if request.method == 'POST':
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+        user = authenticate(request , username =username , password=password)
+        if user is not None:
+            dj_login(request , user)
+            return redirect('home')
+#logout Method                
+def logout(request):
+	if request.user.is_authenticated:
+		deauth(request)
+	return redirect('home')
+
+def maid(request):
+    context={}
+    maid_form=add_maid_form()
+
+    if request.method=="POST":
+        maid_form=add_maid_form(request.POST,request.FILES)
+        if maid_form.is_valid():
+            data=maid_form.save()
+            #data=form.save(commit=FALSE)
+            #data.save()
+            context["status"]="{} Added Successfully. In case there are more maids, please fill the form again".format(data.Maid_Name)
+        else:
+            context["errorStatus"]="Please correct the mistakes and re-submit"
+            #return render(request, "demography.html", {'form':form})
+
+    context["maid_form"] =maid_form
+
+    return render(request,"maid.html",
+    context)
+
+def emergency(request):
+    context={}
+    emergency_form=add_emergency_form()
+
+    if request.method=="POST":
+        emergency_form=add_emergency_form(request.POST,request.FILES)
+        if emergency_form.is_valid():
+            data=emergency_form.save()
+            #data=form.save(commit=FALSE)
+            #data.save()
+            context["status"]="{} Added Successfully. In case there are more emergency contacts, please fill the form again".format(data.Emergency_Contact_Name)
+        else:
+            context["errorStatus"]="Please correct the mistakes and re-submit"
+            #return render(request, "demography.html", {'form':form})
+
+    context["emergency_form"] =emergency_form
+
+    return render(request,"emergency.html",
+    context)
 # def add_demography_view(request):
 #     return render(request,"")
 
@@ -144,3 +293,23 @@ def search(request):
 #         listings = Listing.objects.filter(featured_choices=featured_filter)
 # else:
 #         listings = Listing.objects.all()
+
+def maintenance(request):
+    context={}
+    maintenance_form=add_maintenance_form()
+
+    if request.method=="POST":
+        maintenance_form=add_maintenance_form(request.POST,request.FILES)
+        if maintenance_form.is_valid():
+            data=maintenance_form.save()
+            #data=form.save(commit=FALSE)
+            #data.save()
+            context["status"]="Details added Successfully"
+        else:
+            context["errorStatus"]="Please correct the mistakes and re-submit"
+            #return render(request, "demography.html", {'form':form})
+
+    context["maintenance_form"] =maintenance_form
+
+    return render(request,"maintenance.html",
+    context)

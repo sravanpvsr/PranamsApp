@@ -14,11 +14,11 @@
 <script>
         function Hide() {
             if(document.getElementById('id_Room').options[document.getElementById('id_Room').selectedIndex].value) {
-                 document.getElementById('id_Address_Outside_PSN').disabled = true;
+                 
                  document.getElementById('id_Room_Type').disabled = false;
             }
             else if (! document.getElementById('id_Room').options[document.getElementById('id_Room').selectedIndex].value){
-                document.getElementById('id_Address_Outside_PSN').disabled = false;  
+                
                 document.getElementById('id_Room_Type').disabled = true;
             }
          
@@ -30,7 +30,6 @@
         }
             function MemberHide() {
          if(document.getElementById('id_Category').options[document.getElementById('id_Category').selectedIndex].value == "A") {
-                document.getElementById('id_Staff_Designation').disabled = true;
                 document.getElementById('id_Staff_Institution_Emp_ID').disabled = true;
                 document.getElementById('id_Institution_Name').disabled = true;
                 document.getElementById('id_Sub_Division_Name').disabled = true;
@@ -40,7 +39,6 @@
         
 
          else {
-                document.getElementById('id_Staff_Designation').disabled = false;
                 document.getElementById('id_Staff_Institution_Emp_ID').disabled = false;
                 document.getElementById('id_Institution_Name').disabled = false;
                 document.getElementById('id_Sub_Division_Name').disabled = false;
