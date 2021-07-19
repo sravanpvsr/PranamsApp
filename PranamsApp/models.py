@@ -132,7 +132,7 @@ CHOICES = (
     ('no','No')
 )
 MEMBER_CHOICES=(
-    ('member','Member'),
+    ('member','Staff'),
     ('occupant','Occupant')
 )
 # class Vehicle_Master(models.Model):
@@ -231,14 +231,15 @@ class Gate_Master(models.Model):
 
 class add_demography(models.Model):
     Room=models.ForeignKey(Room_Master, on_delete=models.CASCADE, blank=True,null=True)
-    Member_Occupant= models.CharField(max_length=15, choices=MEMBER_CHOICES)
+    Member_Occupant= models.CharField(max_length=15, choices=MEMBER_CHOICES,
+    verbose_name="Is the resident a Staff/ Not?")
     Category=models.ForeignKey(Member_Category_Master, on_delete=models.CASCADE,blank=True,null=True)
     Relationship_With_Primary_Member=models.CharField(max_length=20, choices=RELATIONSHIP_CHOICES,null=True,blank=True)
     #Permanent_Resident_Or_Not=models.CharField(blank=True,max_length=5, choices=CHOICES,null=True)
     Room_Type=models.ForeignKey(Room_Type_Master, on_delete=models.CASCADE, blank=True,null=True)
     Name=models.CharField(max_length=100)
     DOB=models.DateField(blank=True,null=True,verbose_name="Date of Birth in YYYY-MM-DD")
-    Aadhaar_ID=models.IntegerField()
+    Aadhaar_ID=models.IntegerField(, blank=True,null=True)
     Mobile=models.IntegerField(blank=True,null=True)
     Whatsapp_Choice = models.CharField(max_length=5, choices=CHOICES,blank=True,null=True)
     Whatsapp=models.IntegerField(blank=True,null=True)
@@ -345,7 +346,7 @@ class add_maid(models.Model):
     Mobile=models.IntegerField(blank=True,null=True)
     Address_Outside_PSN=models.CharField(max_length=200, blank=True,null=True)
     Validity=models.DateField(null=True,blank=True,verbose_name="Maid Validity in YYYY-MM-DD")
-    Remarks=models.CharField(max_length=200)
+    Remarks=models.CharField(max_length=200,null=True,blank=True)
     Updated_Date=models.DateTimeField(auto_now_add = True)
     Updated_By=models.CharField(max_length=10,default='Admin')
     Status=models.CharField(max_length=2,default='Y')

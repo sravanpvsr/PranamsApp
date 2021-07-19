@@ -6,8 +6,9 @@
 
          <!-- {{form}} -->
 <center>
-<div class ="col-md-6 mx-auto">               
-        <h1>Demography Details</h1>
+<div class ="col-md-4 mx-auto">               
+        <h1 style="color:rgb(48, 2, 38); font-family:verdana;
+        background-color:rgb(247, 174, 216);">Demography Details</h1>
 </div>
 </center>            
 
@@ -73,9 +74,11 @@ else {
         };
 </script>
 
+<!-- <div class="bg-img" style="background-image: url('/media/stupa-left-u2295.png');
+height:100vh"> -->
 <div class="container">
         <div class="row">
-                <div class ="col-md-6 mx-auto bg-light">
+                <div style="background-color:rgb(240, 216, 234); " class ="col-md-6 mx-auto">
                         
                                 <form action="" method="POST" enctype="multipart/form-data">
                                         {% csrf_token %}
@@ -97,7 +100,7 @@ else {
                 </div>
         </div>
 </div>
-
+<!-- </div> -->
 
 
 {% if status %}

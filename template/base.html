@@ -4,41 +4,53 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PRANAMS</title>
+    <hr>
+        <title>PRANAMS</title>
+    </hr>
     <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.min.css'%}"/>
+    <div class="row-fluid">
+        <div class="jumbotron jumbotron-fluid"
+    style="background-image: url('/media/Copy\ of\ PRANAMS.png');"></div>
+       
+
+    </div>
+</div>
+
 </head>
+
 <body>
     <div class="container-fluid">
-        <div class="row">
-            <div class="col-md-12">
-                <nav class="navbar-nav navbar-expand bg-dark navbar-dark">
-                    <a href="" class="navbar-brand">PRANAMS</a>
+        
+        <div class="row"></div>
+
+                <nav class="navbar navbar-expand navbar-dark bg-info">
+                    <!-- <a href="{% url 'home'%}" class="navbar-brand">PRANAMS</a> -->
                     <ul class="navbar-nav ">
                         <li class="nav-item">
-                            <a href="{% url 'demography'%}" class="nav-link">Demography Details</a>
+                            <a href="{% url 'demography'%}" class="navbar-brand">Demography Details</a>
                         </li> 
                         <li class="nav-item"> 
-                            <a href="{% url 'occupant' %} " class="nav-link">Occupant Details</a>
+                            <a href="{% url 'occupant' %} " class="navbar-brand">Occupant Details</a>
                         </li>
                         <li class="nav-item">
-                            <a href="{% url 'emergency' %}" class="nav-link">Emergency Contact Details</a>
+                            <a href="{% url 'emergency' %}" class="navbar-brand">Emergency Contact Details</a>
                         </li>
                         <li class="nav-item">
-                            <a href="{% url 'vehicle' %}" class="nav-link">Vehicle Details</a>
+                            <a href="{% url 'vehicle' %}" class="navbar-brand">Vehicle Details</a>
                         </li>
                         <li class="nav-item">
-                            <a href="{% url 'maid' %}" class="nav-link">Maid Details</a>
+                            <a href="{% url 'maid' %}" class="navbar-brand">Maid Details</a>
                         </li>
                         <li class="nav-item">
-                            <a href="{% url 'maintenance' %}" class="nav-link">Room Maintenance Details</a>
+                            <a href="{% url 'maintenance' %}" class="navbar-brand">Room Maintenance Details</a>
                         </li>
                         <li class="nav-item">
-                            <a href="{% url 'search' %}" class="nav-link">Get Room Data</a>
+                            <a href="{% url 'search' %}" class="navbar-brand">Get Room Data</a>
                         </li>
 
                     </ul>
                 </nav>
-            </div>
+            
 
         </div>
 

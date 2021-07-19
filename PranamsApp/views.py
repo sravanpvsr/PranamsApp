@@ -135,7 +135,6 @@ def vehicle(request):
     Member_Occupant=request.GET.get('Member_Occupant')
 
     sat=add_demography.objects.filter(Room=room_id, Status='Y')
-    print(sat)
     m_names=[]
     o_names=[]
     if sat:
@@ -209,9 +208,11 @@ def vehicle(request):
 
             )
 
-            
+        
         vehicle_details.save()
-        vehicle_details.Gate_Name.add(*Gate_Name)        
+        vehicle_details.Gate_Name.add(*Gate_Name)
+        context["status"]="Details added Successfully. In case there are more occupants, please fill the form again"
+                 
 
 
     context["vehicle_form"] =vehicle_form

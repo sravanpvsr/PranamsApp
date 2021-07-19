@@ -69,9 +69,9 @@ class add_demography_form(forms.ModelForm):
 
 
         # conditions to be met for the username length
-        if len(str(Member_Mobile)) != 10:
-            self._errors['Member_Mobile'] = self.error_class([
-                'Mobile Number should contain 10 digits'])
+        # if len(str(Member_Mobile)) != 10:
+        #     self._errors['Member_Mobile'] = self.error_class([
+        #         'Mobile Number should contain 10 digits'])
         
         
         # if len(str(Address_Outside_PSN)) < 50:
@@ -82,9 +82,9 @@ class add_demography_form(forms.ModelForm):
         #     self._errors['Emergency_Contact_Address'] = self.error_class([
         #         'Minimum length is 50 characters'])
 
-        if len(str(Member_Aadhaar_ID)) != 12:
-            self._errors['Member_Aadhaar_ID'] = self.error_class([
-                'Aadhaar Number should contain 12 digits'])
+        # if len(str(Member_Aadhaar_ID)) != 12:
+        #     self._errors['Member_Aadhaar_ID'] = self.error_class([
+        #         'Aadhaar Number should contain 12 digits'])
         
         if not Member_Name.replace(" ", "").isalpha():
             self._errors['Member_Name'] = self.error_class([
@@ -179,28 +179,28 @@ class add_occupant_form(forms.ModelForm):
         # if len(str(Aadhaar_ID)) != 12:
         #     self._errors['Aadhaar_ID'] = self.error_class([
         #         'Aadhaar Number should contain 12 digits'])
-        if(Name):
-            if not Name.replace(" ", "").isalpha():
-                self._errors['Name'] = self.error_class([
-                    'Please enter a valid name'])
-        if(Emergency_Contact_Name):
-            if not Emergency_Contact_Name.replace(" ", "").isalpha():
-                self._errors['Emergency_Contact_Name'] = self.error_class([
-                    'Please enter a valid name'])
+        # if(Name):
+        #     if not Name.replace(" ", "").isalpha():
+        #         self._errors['Name'] = self.error_class([
+        #             'Please enter a valid name'])
+        # if(Emergency_Contact_Name):
+        #     if not Emergency_Contact_Name.replace(" ", "").isalpha():
+        #         self._errors['Emergency_Contact_Name'] = self.error_class([
+        #             'Please enter a valid name'])
         
-        email_regex = '^[a-z0-9]+[\._]?[a-z0-9]+[@]\w+[.]\w{2,3}$'  
-        if(Emergency_Contact_Email):
-            if (not re.search(email_regex, Emergency_Contact_Email)):
-                self._errors['Emergency_Contact_Email'] = self.error_class([
-                    'Please enter a valid Email ID'])
-        if(Staff_Designation):
-            if not Staff_Designation.replace(" ", "").isalnum():
-                self._errors['Staff_Designation'] = self.error_class([
-                    'Please enter a valid designation'])
-        if(Staff_Institution_Emp_ID):
-            if not Staff_Institution_Emp_ID.replace(" ", "").isalnum():
-                self._errors['Staff_Institution_Emp_ID'] = self.error_class([
-                    'Please enter a valid Employee Number'])
+        # email_regex = '^[a-z0-9]+[\._]?[a-z0-9]+[@]\w+[.]\w{2,3}$'  
+        # if(Emergency_Contact_Email):
+        #     if (not re.search(email_regex, Emergency_Contact_Email)):
+        #         self._errors['Emergency_Contact_Email'] = self.error_class([
+        #             'Please enter a valid Email ID'])
+        # if(Staff_Designation):
+        #     if not Staff_Designation.replace(" ", "").isalnum():
+        #         self._errors['Staff_Designation'] = self.error_class([
+        #             'Please enter a valid designation'])
+        # if(Staff_Institution_Emp_ID):
+        #     if not Staff_Institution_Emp_ID.replace(" ", "").isalnum():
+        #         self._errors['Staff_Institution_Emp_ID'] = self.error_class([
+        #             'Please enter a valid Employee Number'])
         # if(Member_DL_No):
         #     if not Member_DL_No.replace(" ", "").isalnum():
         #         self._errors['Member_DL_No'] = self.error_class([
