@@ -30,7 +30,8 @@
             }
         }
             function MemberHide() {
-         if(document.getElementById('id_Category').options[document.getElementById('id_Category').selectedIndex].value == "A") {
+         if(document.getElementById('id_Category').options[document.getElementById('id_Category').selectedIndex].value == "A" |
+         document.getElementById('id_Category').options[document.getElementById('id_Category').selectedIndex].value == "O") {
                 document.getElementById('id_Staff_Institution_Emp_ID').disabled = true;
                 document.getElementById('id_Institution_Name').disabled = true;
                 document.getElementById('id_Sub_Division_Name').disabled = true;

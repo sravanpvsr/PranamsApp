@@ -6,9 +6,9 @@ import json
 from django.http import HttpResponse
 
 
-from PranamsApp.models import Member_Category_Master,Institution_Master,Sub_Division_Master,Institution_Sub_Division_Map,Room_Type_Master,Room_Master,Gate_Master,add_demography, add_vehicle,add_maid,add_emergency,add_maintenance
+from PranamsApp.models import Member_Category_Master,Institution_Master,Sub_Division_Master,Institution_Sub_Division_Map,Room_Type_Master,Room_Master,Gate_Master,add_demography, add_vehicle,add_maid,add_emergency,add_maintenance,vehicle_transaction
 from PranamsApp.serializers import Member_Category_Master_Serializer,Institution_Master_Serializer,Sub_Division_Master_Serializer,Institution_Sub_Division_Map_Serializer,Room_Type_Master_Serializer,Room_Master_Serializer,Gate_Master_Serializer
-from PranamsApp.forms import add_demography_form, add_occupant_form, add_vehicle_form,add_maid_form, add_emergency_form,add_maintenance_form
+from PranamsApp.forms import add_demography_form, add_occupant_form, add_vehicle_form,add_maid_form, add_emergency_form,add_maintenance_form,vehicle_transaction_form
 
 from django.core.files.storage import default_storage
 
@@ -313,4 +313,25 @@ def maintenance(request):
     context["maintenance_form"] =maintenance_form
 
     return render(request,"maintenance.html",
+    context)
+
+
+def vehicle_transaction(request):
+    context={}
+    vehicle_tr_form=vehicle_transaction_form()
+
+    if request.method=="POST":
+        vehicle_tr_form=vehicle_transaction_form(request.POST,request.FILES)
+        if vehicle_tr_form.is_valid():
+            data=vehicle_tr_form.save()
+            #data=form.save(commit=FALSE)
+            #data.save()
+            context["status"]="Vehicle permitted."
+        else:
+            context["errorStatus"]="Please correct the mistakes and re-submit"
+            #return render(request, "demography.html", {'form':form})
+
+    context["vehicle_tr_form"] =vehicle_tr_form
+
+    return render(request,"transaction_vehicle.html",
     context)

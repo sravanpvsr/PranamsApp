@@ -1,4 +1,5 @@
 from django.db import models
+from django.utils.html import mark_safe
 
 ## Blood Group Dropdown
 BLOOD_GROUP_CHOICES = (
@@ -232,14 +233,14 @@ class Gate_Master(models.Model):
 class add_demography(models.Model):
     Room=models.ForeignKey(Room_Master, on_delete=models.CASCADE, blank=True,null=True)
     Member_Occupant= models.CharField(max_length=15, choices=MEMBER_CHOICES,
-    verbose_name="Is the resident a Staff/ Not?")
+    verbose_name="Is the Occupant a Staff/ Not?",null=True,blank=True)
     Category=models.ForeignKey(Member_Category_Master, on_delete=models.CASCADE,blank=True,null=True)
     Relationship_With_Primary_Member=models.CharField(max_length=20, choices=RELATIONSHIP_CHOICES,null=True,blank=True)
     #Permanent_Resident_Or_Not=models.CharField(blank=True,max_length=5, choices=CHOICES,null=True)
     Room_Type=models.ForeignKey(Room_Type_Master, on_delete=models.CASCADE, blank=True,null=True)
     Name=models.CharField(max_length=100)
     DOB=models.DateField(blank=True,null=True,verbose_name="Date of Birth in YYYY-MM-DD")
-    Aadhaar_ID=models.IntegerField(, blank=True,null=True)
+    Aadhaar_ID=models.IntegerField(blank=True,null=True)
     Mobile=models.IntegerField(blank=True,null=True)
     Whatsapp_Choice = models.CharField(max_length=5, choices=CHOICES,blank=True,null=True)
     Whatsapp=models.IntegerField(blank=True,null=True)
@@ -267,7 +268,13 @@ class add_demography(models.Model):
     Updated_Date=models.DateTimeField(auto_now_add = True)
     Updated_By=models.CharField(max_length=10,default='Admin')
     Status=models.CharField(max_length=2,default='Y')
+    def __str__(self):
+        return self.Name
+    
+    def image_tag(self):
+        return mark_safe('<img src="/media/%s" width="150" height="150" />' % (self.Photo_File_Name))
 
+    image_tag.short_description = 'Image'
 
 # class add_vehicle(models.Model):
 #     Room=models.ForeignKey(Room_Master, on_delete=models.CASCADE)
@@ -307,20 +314,21 @@ class add_vehicle(models.Model):
     #Vehicle_PRANAMS_ID=models.CharField(primary_key=True,max_length=10)
     Vehicle_No=models.CharField(max_length=20)
     Two_Four_Wheeler=models.CharField(max_length=5,choices=TWO_FOUR_WHEELER)
-    DL_No=models.CharField(max_length=50)
-    DL_Validity=models.DateField(verbose_name="DL Valid Upto in YYYY-MM-DD")
+    DL_No=models.CharField(max_length=50,null=True,blank=True)
+    DL_Validity=models.DateField(verbose_name="DL Valid Upto in YYYY-MM-DD",null=True,blank=True)
     #RC_No=models.CharField(max_length=30)
-    RC_Valid_Upto=models.DateField(verbose_name="RC Valid Upto in YYYY-MM-DD")
+    RC_Valid_Upto=models.DateField(verbose_name="RC Valid Upto in YYYY-MM-DD",null=True,blank=True)
     #Occupant_PRANAMS_ID=models.ForeignKey(Occupant_Master, on_delete=models.CASCADE)
-    Insurance_Valid_Upto=models.DateField(verbose_name="Insurance Valid Upto in YYYY-MM-DD")
+    Insurance_Valid_Upto=models.DateField(verbose_name="Insurance Valid Upto in YYYY-MM-DD",null=True,blank=True)
     Existing_Sticker_Number=models.IntegerField(null=True,blank=True)
     #Entry_Extended_By=models.CharField(max_length=30)
-    Remarks=models.CharField(max_length=200)
+    Remarks=models.CharField(max_length=200,null=True,blank=True)
     Updated_Date=models.DateTimeField(auto_now_add = True)
     Updated_By=models.CharField(max_length=10,default='Admin')
     Status=models.CharField(max_length=2,default='Y')
     Gate_Name=models.ManyToManyField('Gate_Master')
-    
+    def __str__(self):
+        return self.Name
 
 # class add_vehicle_Gate_Name(models.Model):
 #      Vehicle_PRANAMS_ID=models.ForeignKey(add_vehicle, on_delete=models.CASCADE)
@@ -369,6 +377,12 @@ class add_maintenance(models.Model):
     Electricity_Charges_Paid_Upto=models.CharField(verbose_name="Electrical Charges Paid Upto in MMM-YYYY",max_length=10,blank=True,null=True)
     Updated_Date=models.DateTimeField(auto_now_add = True)
     Updated_By=models.CharField(max_length=10,default='Admin')
+    Status=models.CharField(max_length=2,default='Y')
+
+class vehicle_transaction(models.Model):
+    Sticker_Number=models.IntegerField( blank=True,null=True)
+    Updated_Date=models.DateTimeField(auto_now_add = True)
+    Updated_By=models.CharField(max_length=10,default='Sevadal')
     Status=models.CharField(max_length=2,default='Y')
 
 

@@ -4,7 +4,7 @@ from django.core.validators import EMPTY_VALUES
 #from django.utils.safestring import mark_safe
 import re
 
-from PranamsApp.models import Member_Category_Master,Institution_Master,Sub_Division_Master,Institution_Sub_Division_Map,Room_Type_Master,Room_Master,Gate_Master,add_demography,add_vehicle,add_maid,add_emergency,add_maintenance
+from PranamsApp.models import Member_Category_Master,Institution_Master,Sub_Division_Master,Institution_Sub_Division_Map,Room_Type_Master,Room_Master,Gate_Master,add_demography,add_vehicle,add_maid,add_emergency,add_maintenance,vehicle_transaction
 from PranamsApp.serializers import Member_Category_Master_Serializer,Institution_Master_Serializer,Sub_Division_Master_Serializer,Institution_Sub_Division_Map_Serializer,Room_Type_Master_Serializer,Room_Master_Serializer,Gate_Master_Serializer
 
 class add_demography_form(forms.ModelForm):
@@ -86,17 +86,17 @@ class add_demography_form(forms.ModelForm):
         #     self._errors['Member_Aadhaar_ID'] = self.error_class([
         #         'Aadhaar Number should contain 12 digits'])
         
-        if not Member_Name.replace(" ", "").isalpha():
-            self._errors['Member_Name'] = self.error_class([
-                'Please enter a valid name'])
-        # if not Emergency_Contact_Name.replace(" ", "").isalpha():
-        #     self._errors['Emergency_Contact_Name'] = self.error_class([
+        # if not Member_Name.replace(" ", "").isalpha():
+        #     self._errors['Member_Name'] = self.error_class([
         #         'Please enter a valid name'])
+        # # if not Emergency_Contact_Name.replace(" ", "").isalpha():
+        # #     self._errors['Emergency_Contact_Name'] = self.error_class([
+        # #         'Please enter a valid name'])
         
-        email_regex = '^[a-z0-9]+[\._]?[a-z0-9]+[@]\w+[.]\w{2,3}$'  
-        if (not re.search(email_regex, Email)):
-            self._errors['Email'] = self.error_class([
-                'Please enter a valid Email ID'])
+        # email_regex = '^[a-z0-9]+[\._]?[a-z0-9]+[@]\w+[.]\w{2,3}$'  
+        # if (not re.search(email_regex, Email)):
+        #     self._errors['Email'] = self.error_class([
+        #         'Please enter a valid Email ID'])
         # if(Staff_Designation):
         #     if not Staff_Designation.replace(" ", "").isalnum():
         #         self._errors['Staff_Designation'] = self.error_class([
@@ -356,5 +356,19 @@ class add_maintenance_form(forms.ModelForm):
         
     def clean(self):
         super(add_maintenance_form, self).clean()        
+        # return any errors if found
+        return self.cleaned_data
+
+class vehicle_transaction_form(forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+    class Meta:
+        model=vehicle_transaction
+        fields='__all__'
+        exclude=["Updated_Date","Updated_By","Status"]
+        
+    def clean(self):
+        super(vehicle_transaction_form, self).clean()        
         # return any errors if found
         return self.cleaned_data

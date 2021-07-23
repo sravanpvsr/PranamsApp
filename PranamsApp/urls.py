@@ -17,4 +17,5 @@ urlpatterns=[
     url(r'^maid/$',views.maid,name="maid"),
     url(r'^emergency/$',views.emergency,name="emergency"),
     url(r'^maintenance/$',views.maintenance,name="maintenance"),
+    url(r'^vehicle_transaction/$',views.vehicle_transaction,name="vehicle_transaction"),
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
