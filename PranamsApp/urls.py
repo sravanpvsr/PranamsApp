@@ -3,10 +3,12 @@ from PranamsApp import views
 
 from django.conf.urls.static import static
 from django.conf import settings
+from django.views.generic.base import TemplateView
 
 urlpatterns=[
     url(r'^institution/$',views.institutionApi),
-    url(r'^home/$',views.home , name='home'),
+    url(r'^$',TemplateView.as_view(template_name='home.html'),name='home'),
+    #url(r'^home/$',views.home , name='home'),
     url(r'^SaveFile$',views.SaveFile),
     url(r'^demography/$',views.demography,name="demography"),
     url(r'^occupant/$',views.occupant,name="occupant"),

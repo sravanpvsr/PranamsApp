@@ -18,14 +18,27 @@
 
 </head>
 
+{% if messages %}
+  <ul class="messages">
+    {% for message in messages %}
+      <li class="{{ message.tags }}">{{ message }}</li>
+    {% endfor %}
+  </ul>
+{% endif %}
+
 <body>
+
+    
     <div class="container-fluid">
+
+        
         
         <div class="row"></div>
 
                 <nav class="navbar navbar-expand navbar-dark bg-info">
                     <!-- <a href="{% url 'home'%}" class="navbar-brand">PRANAMS</a> -->
-                    <ul class="navbar-nav ">
+                    <ul class="navbar-nav mr-auto">
+                        {% if user.is_authenticated %}
                         <li class="nav-item">
                             <a href="{% url 'demography'%}" class="navbar-brand">Demography Details</a>
                         </li> 
@@ -47,6 +60,30 @@
                         <li class="nav-item">
                             <a href="{% url 'vehicle_transaction' %}" class="navbar-brand">Vehicle Transaction</a>
                         </li>
+                        {% else %}
+                        <li class="nav-item">
+                            <a href="{% url 'home' %}" class="navbar-brand">Home</a>
+                        </li>
+                        {% endif %}
+                    </ul>
+                    <ul class="navbar-nav ml-auto">
+                        {% if user.is_authenticated %}
+                      
+
+                        <li class="nav-item">
+                            <a class="navbar-brand">Welcome {{request.user}}</a> 
+                         </li> 
+                         <li class="nav-item">
+                             <a href="{% url 'logout' %}" class="navbar-brand">Logout</a>
+                         </li>
+                        {% else %}
+                        <li class="nav-item">
+                            <a class="navbar-brand" href="" data-toggle="modal" data-target="#loginModal">Login</a>
+
+                        </li>
+
+                        
+                        {% endif %}
 
                     </ul>
                 </nav>
@@ -60,3 +97,4 @@
 
 </body>
 </html>
+ 

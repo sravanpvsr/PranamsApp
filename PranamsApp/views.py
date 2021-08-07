@@ -4,17 +4,21 @@ from rest_framework.parsers import JSONParser
 from django.http.response import JsonResponse
 import json
 from django.http import HttpResponse
+from django.shortcuts import render,redirect
+from django.contrib import messages
 
 
 from PranamsApp.models import Member_Category_Master,Institution_Master,Sub_Division_Master,Institution_Sub_Division_Map,Room_Type_Master,Room_Master,Gate_Master,add_demography, add_vehicle,add_maid,add_emergency,add_maintenance,vehicle_transaction
 from PranamsApp.serializers import Member_Category_Master_Serializer,Institution_Master_Serializer,Sub_Division_Master_Serializer,Institution_Sub_Division_Map_Serializer,Room_Type_Master_Serializer,Room_Master_Serializer,Gate_Master_Serializer
 from PranamsApp.forms import add_demography_form, add_occupant_form, add_vehicle_form,add_maid_form, add_emergency_form,add_maintenance_form,vehicle_transaction_form
-
+from django.contrib.auth import authenticate,logout as deauth, login  as dj_login
 from django.core.files.storage import default_storage
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.   
 
 @csrf_exempt
+
 def institutionApi(request):
     
     if request.method=='GET':
@@ -50,6 +54,8 @@ def SaveFile(request):
 def home(request):
     return render(request,"home.html")
 
+
+@login_required
 def demography(request):
     
     # displayMemberCategory=Member_Category_Master.objects.all()
@@ -75,6 +81,7 @@ def demography(request):
 
     return render(request,"demography.html",
     context)
+    
     # {"Member_Category_Master":displayMemberCategory,
     # "Room_Master":displayRoom,
     # "Institution_Master":displayInstitution,
@@ -83,6 +90,7 @@ def demography(request):
     # }
     #)
 
+@login_required
 def occupant(request):
     context={}
     occ_form=add_occupant_form()
@@ -130,6 +138,7 @@ def occupant(request):
 #     context)
 
 #Updated - 8-Jul-2021
+@login_required
 def vehicle(request):
     room_id=request.GET.get('Room')
     Member_Occupant=request.GET.get('Member_Occupant')
@@ -233,19 +242,28 @@ def search(request):
 
 #login method
 def login(request):
+    #context={}
     if request.method == 'POST':
         username = request.POST.get('username')
         password = request.POST.get('password')
         user = authenticate(request , username =username , password=password)
         if user is not None:
             dj_login(request , user)
+            #context["status"]="Successfully logged in."
+            messages.success(request,"Successfully logged in.")
             return redirect('home')
+        else:
+            #context["errorStatus"]="Invalid credentials. Please try again."
+            messages.error(request,"Invalid credentials.")
+            return redirect('home')
+    return HttpResponse('404 - Not Found')
 #logout Method                
 def logout(request):
 	if request.user.is_authenticated:
 		deauth(request)
 	return redirect('home')
 
+@login_required
 def maid(request):
     context={}
     maid_form=add_maid_form()
@@ -266,6 +284,7 @@ def maid(request):
     return render(request,"maid.html",
     context)
 
+@login_required
 def emergency(request):
     context={}
     emergency_form=add_emergency_form()
@@ -295,6 +314,7 @@ def emergency(request):
 # else:
 #         listings = Listing.objects.all()
 
+@login_required
 def maintenance(request):
     context={}
     maintenance_form=add_maintenance_form()
@@ -315,7 +335,7 @@ def maintenance(request):
     return render(request,"maintenance.html",
     context)
 
-
+@login_required
 def vehicle_transaction(request):
     context={}
     vehicle_tr_form=vehicle_transaction_form()

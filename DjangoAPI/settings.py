@@ -12,6 +12,15 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 
 from pathlib import Path
 import os
+from django.contrib.messages import constants as messages
+
+MESSAGE_TAGS = {
+        messages.DEBUG: 'alert-secondary',
+        messages.INFO: 'alert-info',
+        messages.SUCCESS: 'alert-success',
+        messages.WARNING: 'alert-warning',
+        messages.ERROR: 'alert-danger',
+ }
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -31,7 +40,7 @@ STATIC_DIR=os.path.join(BASE_DIR,"static")
 SECRET_KEY = 'django-insecure-9#n&qx8tw7&wa@#3o$-fxkhhkc4krzu8ragk)xt-&0l)v=op1@'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['192.168.29.240','192.168.0.185','127.0.0.1','192.168.1.100',
                 '192.168.1.101','192.168.1.102','192.168.1.137',
@@ -52,7 +61,8 @@ INSTALLED_APPS = [
     'corsheaders',
     'PranamsApp.apps.PranamsappConfig',
     'rest_framework',
-    "bootstrap4"
+    "bootstrap4",
+    'django_session_timeout'
 ]
 
 CORS_ORIGIN_ALLOW_ALL=True
@@ -61,11 +71,13 @@ MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'django_session_timeout.middleware.SessionTimeoutMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+
 ]
 
 ROOT_URLCONF = 'DjangoAPI.urls'
@@ -140,8 +152,10 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS=[
     STATIC_DIR
 ]
-STATIC_ROOT='/home/pranams/PranamsApp/static/'
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+SESSION_EXPIRE_SECONDS=120
