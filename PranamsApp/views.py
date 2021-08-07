@@ -251,7 +251,7 @@ def login(request):
             dj_login(request , user)
             #context["status"]="Successfully logged in."
             messages.success(request,"Successfully logged in.")
-            return redirect('home')
+            return redirect('demography')
         else:
             #context["errorStatus"]="Invalid credentials. Please try again."
             messages.error(request,"Invalid credentials.")
