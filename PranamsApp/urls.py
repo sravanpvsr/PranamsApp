@@ -1,5 +1,6 @@
 from django.conf.urls import url
 from PranamsApp import views
+from django.views.static import serve 
 
 from django.conf.urls.static import static
 from django.conf import settings
@@ -20,4 +21,6 @@ urlpatterns=[
     url(r'^emergency/$',views.emergency,name="emergency"),
     url(r'^maintenance/$',views.maintenance,name="maintenance"),
     url(r'^vehicle_transaction/$',views.vehicle_transaction,name="vehicle_transaction"),
+    url(r'^media/(?P<path>.*)$', serve,{'document_root': settings.MEDIA_ROOT}), 
+    url(r'^static/(?P<path>.*)$', serve,{'document_root': settings.STATIC_ROOT}), 
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

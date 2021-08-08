@@ -33,6 +33,11 @@ TEMPLATE_DIR=os.path.join(BASE_DIR,"template")
 STATIC_DIR=os.path.join(BASE_DIR,"static")
 
 
+# print(BASE_DIR)
+# print(MEDIA_ROOT)
+# print(STATIC_DIR)
+# print(TEMPLATE_DIR)
+
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
@@ -43,7 +48,7 @@ SECRET_KEY = 'django-insecure-9#n&qx8tw7&wa@#3o$-fxkhhkc4krzu8ragk)xt-&0l)v=op1@
 DEBUG = False
 
 ALLOWED_HOSTS = ['192.168.29.240','192.168.0.185','127.0.0.1','192.168.1.100',
-                '192.168.1.101','192.168.1.102','192.168.1.137',
+                '192.168.1.101','192.168.1.102','192.168.1.137','192.168.1.12',
                 'pranams.pythonanywhere.com']
 LANGUAGE_CODE ='en-GB'
 
@@ -158,4 +163,4 @@ STATICFILES_DIRS=[
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-SESSION_EXPIRE_SECONDS=120
+SESSION_EXPIRE_SECONDS=600
