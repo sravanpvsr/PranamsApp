@@ -9,7 +9,7 @@
     </hr>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.2/css/bootstrap.min.css"/>
     <div class="row-fluid">
-        <img class="img-fluid" src="/media/Copy of PRANAMS.png"></img>
+        <img class="img-fluid" src="/media/PRANAMS_New.png"></img>
     </div>
 </div>
 
@@ -45,7 +45,6 @@
                     </button>
             </div>
                     <div id="main-menu" class="collapse navbar-collapse">
-                    <!-- <a href="{% url 'home'%}" class="navbar-brand">PRANAMS</a> -->
                     <ul class="nav navbar-nav mr-auto" >
                         {% if user.is_authenticated %}
                         <li class="nav-item">
@@ -69,10 +68,7 @@
                         <li class="nav-item">
                             <a href="{% url 'vehicle_transaction' %}" class="navbar-brand">Vehicle Transaction</a>
                         </li>
-                        {% else %}
-                        <li class="nav-item">
-                            <a href="{% url 'home' %}" class="navbar-brand">Home</a>
-                        </li>
+                        
                         {% endif %}
                     </ul>
                     <div>
