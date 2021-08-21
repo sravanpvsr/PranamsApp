@@ -335,8 +335,28 @@ def maintenance(request):
     return render(request,"maintenance.html",
     context)
 
-@login_required
+
 def vehicle_transaction(request):
+    sticker_num=request.GET.get('Sticker_Number')
+    if sticker_num is not None:
+        sticker_num=int(sticker_num)
+
+    sat=add_vehicle.objects.filter(Existing_Sticker_Number=sticker_num, Status='Y')
+    v_num=[]
+    #v_owner=[]
+    #v_mobile=[]
+
+    if sat:
+        for s in sat:
+            v_num.append(s.Vehicle_No)
+            #v_owner.append(s.Member_Name_id) #TODO get name & mobile from other model
+
+    
+    if sticker_num:
+        if v_num != []:
+            your_list_as_json = json.dumps(v_num)
+            return HttpResponse(your_list_as_json ,content_type ="application/json")
+
     context={}
     vehicle_tr_form=vehicle_transaction_form()
 
@@ -344,14 +364,12 @@ def vehicle_transaction(request):
         vehicle_tr_form=vehicle_transaction_form(request.POST,request.FILES)
         if vehicle_tr_form.is_valid():
             data=vehicle_tr_form.save()
-            #data=form.save(commit=FALSE)
-            #data.save()
             context["status"]="Vehicle permitted."
         else:
             context["errorStatus"]="Please correct the mistakes and re-submit"
-            #return render(request, "demography.html", {'form':form})
 
     context["vehicle_tr_form"] =vehicle_tr_form
+
 
     return render(request,"transaction_vehicle.html",
     context)
