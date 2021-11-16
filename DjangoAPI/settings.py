@@ -46,11 +46,12 @@ STATIC_ROOT = os.path.join(BASE_DIR, "static")
 SECRET_KEY = 'django-insecure-9#n&qx8tw7&wa@#3o$-fxkhhkc4krzu8ragk)xt-&0l)v=op1@'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['192.168.29.240','192.168.0.185','127.0.0.1','192.168.1.100',
                 '192.168.1.101','192.168.1.102','192.168.1.137','192.168.1.12',
-                'pranams.pythonanywhere.com']
+                'pranams.pythonanywhere.com','192.168.1.39','192.168.0.6','192.168.155.137','192.168.0.7',
+                '192.168.174.137','192.168.29.129']
 LANGUAGE_CODE ='en-GB'
 
 
@@ -68,7 +69,12 @@ INSTALLED_APPS = [
     'PranamsApp.apps.PranamsappConfig',
     'rest_framework',
     "bootstrap4",
-    'django_session_timeout'
+    'django_session_timeout',
+    'django_filters',
+    'django_tables2',
+    'django_extensions',
+    'river',
+    
 ]
 
 CORS_ORIGIN_ALLOW_ALL=True
@@ -164,4 +170,6 @@ STATICFILES_DIRS=[
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-SESSION_EXPIRE_SECONDS=600
+#SESSION_EXPIRE_SECONDS=600
+
+SESSION_EXPIRE_AT_BROWSER_CLOSE=True

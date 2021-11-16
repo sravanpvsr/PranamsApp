@@ -47,27 +47,99 @@
                     <div id="main-menu" class="collapse navbar-collapse">
                     <ul class="nav navbar-nav mr-auto" >
                         {% if user.is_authenticated %}
+                        {% if request.user.is_staff %}
                         <li class="nav-item">
-                            <a href="{% url 'demography'%}" class="navbar-brand">Demography Details </a>
+                            <a href="{% url 'admin:index' %}" class="navbar-brand-custom">Admin Page</a>
                         </li> 
+
+                        <li class="nav-item">
+                            <a href="{% url 'searchRoom'%}" class="navbar-brand">Search Room - Detailed View</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a href="{% url 'searchRoomCompact'%}" class="navbar-brand">Search Room - Compact View</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a href="{% url 'admin:PranamsApp_maid_changelist'%}" class="navbar-brand">Search Maid Details</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a href="{% url 'searchVehicle'%}" class="navbar-brand">Search Vehicle Details</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a href="{% url 'searchTempVehicle'%}" class="navbar-brand">Search Temporary Vehicle Details</a>
+                        </li>
+                        
+                        <li class="nav-item">
+                            <a href="{% url 'demography'%}" class="navbar-brand">Add New Demography Details </a>
+                        </li>
+                        
+                        
                         <li class="nav-item"> 
-                            <a href="{% url 'occupant' %} " class="navbar-brand">Occupant Details</a>
+                            <a href="{% url 'occupant' %} " class="navbar-brand">Add Occupant Details</a>
                         </li>
                         <li class="nav-item">
-                            <a href="{% url 'emergency' %}" class="navbar-brand">Emergency Contact Details</a>
+                            <a href="{% url 'emergency' %}" class="navbar-brand">Add Emergency Contact Details</a>
                         </li>
                         <li class="nav-item">
-                            <a href="{% url 'vehicle' %}" class="navbar-brand">Vehicle Details</a>
+                            <a href="{% url 'vehicle' %}" class="navbar-brand">Add New Vehicle</a>
                         </li>
                         <li class="nav-item">
-                            <a href="{% url 'maid' %}" class="navbar-brand">Maid Details</a>
+                            <a href="{% url 'vehicleRenewal' %}" class="navbar-brand">Renew Vehicle Validity</a>
                         </li>
                         <li class="nav-item">
-                            <a href="{% url 'maintenance' %}" class="navbar-brand">Room Maintenance Details</a>
+                            <a href="{% url 'maid_new' %}" class="navbar-brand">Add New Maid</a>
                         </li>
+
+                        <li class="nav-item">
+                            <a href="{% url 'maintenance' %}" class="navbar-brand">Add Room Maintenance Details</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a href="{% url 'maidRenewal' %}" class="navbar-brand">Maid Renewal</a>
+                        </li>                        
+
+                        <li class="nav-item">
+                            <a href="{% url 'searchMaidRenewal' %}" class="navbar-brand">Search Maid Renewal</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a href="{% url 'temp_vehicle' %}" class="navbar-brand">Add Temporary Vehicle Details</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a href="{% url 'admin:PranamsApp_maid_changelist' %}" class="navbar-brand">Update/ Delete Maid</a>
+                        </li> 
+
+                        <li class="nav-item">
+                            <a href="{% url 'admin:PranamsApp_vehicle_changelist' %}" class="navbar-brand">Update/ Delete Vehicle</a>
+                        </li>
+
+
+                        {% endif %}
+
+                        {% ifequal request.user.username 'cg_sd' %}
                         <li class="nav-item">
                             <a href="{% url 'vehicle_transaction' %}" class="navbar-brand">Vehicle Transaction</a>
                         </li>
+
+                        <li class="nav-item">
+                            <a href="{% url 'temp_vehicle_transaction' %}" class="navbar-brand">Temporary Vehicle Transaction</a>
+                        </li>
+
+                        {%endifequal%}
+
+
+                        
+                        {% ifequal request.user.username 'gg_sd' %}
+                        <li class="nav-item">
+                            <a href="{% url 'maid_transaction' %}" class="navbar-brand">Maid Transaction</a>
+                        </li>
+                        {%endifequal%} 
+
+                        
                         
                         {% endif %}
                     </ul>
@@ -113,3 +185,11 @@
 
 </body>
 </html>
+
+<style>
+.navbar-brand-custom {
+    color: yellow;
+    font-size: 20px;
+
+    } 
+</style>

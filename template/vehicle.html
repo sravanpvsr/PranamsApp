@@ -24,49 +24,58 @@
    width:100%;
 }
 
+#id_Type_Of_Owner{
+   padding:5px;
+   width:100%;
+}
+
+#id_Sticker_Number_Available{
+   padding:5px;
+   width:100%;
+}
+
 </style>
 
-<!-- <script>
+<script>
     
     function VehicleHide() {
-     if(document.getElementById('id_Vehicle_Available').options[document.getElementById('id_Vehicle_Available').selectedIndex].value == "no") {
+     if(document.getElementById('id_Type_Of_Owner').options[document.getElementById('id_Type_Of_Owner').selectedIndex].value == "notAshramResident") {
+            document.getElementById('id_owner_name').disabled = false;
+            document.getElementById('id_Mobile').disabled = false;
+            document.getElementById('id_Room').disabled = true;
             document.getElementById('id_Member_Occupant').disabled = true;
-            document.getElementById('id_Vehicle_No').disabled = true;
-            document.getElementById('id_Two_Four_Wheeler').disabled = true;
-            document.getElementById('id_RC_No').disabled = true;
-            document.getElementById('id_RC_Valid_Upto').disabled = true;
-            document.getElementById('id_Insurance_Valid_Upto').disabled = true;
-            document.getElementById('id_Entry_Extended_By').disabled = true;
-            document.getElementById('id_Remarks').disabled = true;
-            document.getElementById('id_DL_No').disabled = true;
-            document.getElementById('id_DL_Validity').disabled = true;
-            document.getElementById('id_submit').disabled=true
+            
         }
     
      else {
+            document.getElementById('id_owner_name').disabled = true;
+            document.getElementById('id_Mobile').disabled = true;
+            document.getElementById('id_Room').disabled = false;
             document.getElementById('id_Member_Occupant').disabled = false;
-            document.getElementById('id_Vehicle_No').disabled = false;
-            document.getElementById('id_Two_Four_Wheeler').disabled = false;
-            document.getElementById('id_RC_No').disabled = false;
-            document.getElementById('id_RC_Valid_Upto').disabled = false;
-            document.getElementById('id_Insurance_Valid_Upto').disabled = false;
-            document.getElementById('id_Entry_Extended_By').disabled = false;
-            document.getElementById('id_Remarks').disabled = false;
-            document.getElementById('id_DL_No').disabled = false;
-            document.getElementById('id_DL_Validity').disabled = false;
-            document.getElementById('id_submit').disabled=false
-            //  document.getElementById('id_list1').style.display = '';
-            //  document.getElementById('id_list2').style.display = 'none';
+        }
+
+        
+    }
+
+    function StickerNumberHide(){
+      if(document.getElementById('id_Sticker_Number_Available').options[document.getElementById('id_Sticker_Number_Available').selectedIndex].value == "no") {
+           
+         document.getElementById('id_Existing_Sticker_Number').disabled = true;
+            
+        }  
+        else{
+         document.getElementById('id_Existing_Sticker_Number').disabled = false;
         }
     }
     
         
     window.onload = function() {
-        document.getElementById('id_Vehicle_Available').onchange = VehicleHide;
+      document.getElementById('id_Sticker_Number_Available').onchange = StickerNumberHide;  
+      document.getElementById('id_Type_Of_Owner').onchange = VehicleHide;
         
         
     };
-</script> -->
+</script>
 
 <center>
    <br>
@@ -81,12 +90,18 @@
                         
       <form action="" method="POST" enctype="multipart/form-data">
          {% csrf_token %}
-                                        
+                                             <div class="form-group">
+                                                <label for="exampleInputEmail1">{{vehicle_form.Type_Of_Owner.label}}</label>
+                                                
+                                                {{vehicle_form.Type_Of_Owner}}
+                                               
+                                              </div> 
                                             <!-- Room Field -->
                                             <div class="form-group">
                                               <label for="exampleInputEmail1">{{vehicle_form.Room.label}}</label>
                                               
                                               {{vehicle_form.Room}}
+                                             </div>
                                               
                                              <!-- Member_Occupant -->
                                              <div class="form-group">
@@ -98,9 +113,23 @@
                                               
                                                <!-- Name Field -->
                                                        
-                                              <div id="id_city">
+                                              <div id="id_member_name">
 
                                               </div>
+                                              <!-- Only for Owners residing outside Ashram -->
+                                              
+
+                                             <div>
+                                                <label for="exampleInputEmail1">{{vehicle_form.Owner_Name.label}}</label>    
+                                                <input type="text" id="id_owner_name" name="Owner_Name" class="form-control"placeholder="Enter Owner Name">
+                                             </div>
+
+                                             <div>
+                                                <label for="exampleInputEmail1">{{vehicle_form.Mobile.label}}</label>    
+                                                <input type="text" id="id_Mobile" name="Mobile" class="form-control"placeholder="Enter Mobile No.">
+                                             </div>
+
+                                             <!-- Only for Owners residing outside Ashram Close-->
 
                                               <!-- Vehicle_No -->
                                              <div class="form-group">
@@ -108,6 +137,8 @@
                                                 <input type="text" name="Vehicle_No" class="form-control"placeholder="Enter Vehicle No">
                                              
                                              </div> 
+
+                                             
 
                                              <!-- Two_Four_Wheeler -->
                                              <div class="form-group">
@@ -117,6 +148,13 @@
                                                
                                              
                                              </div> 
+
+                                             <!-- Vehicle Validity -->
+                                             <div class="form-group">
+                                                <label for="exampleInputEmail1">{{vehicle_form.Validity.label}}</label>    
+                                                <input type="text" name="Validity" class="form-control"placeholder="Vehicle Validity">
+                                             
+                                             </div>  
 
                                               <!-- DL_No -->
                                               <div class="form-group">
@@ -151,12 +189,20 @@
                                              
                                              </div> 
 
+                                             <div class="form-group">
+                                                <label for="exampleInputEmail1">{{vehicle_form.Sticker_Number_Available.label}}</label>    
+                                               
+                                                {{vehicle_form.Sticker_Number_Available}}
+                                               
+                                             
+                                             </div> 
+
                                              <!-- Sticker Number -->
 
 
                                              <div class="form-group">
                                                 <label>{{vehicle_form.Existing_Sticker_Number.label}}</label>    
-                                                <input type="text" name="Existing_Sticker_Number" class="form-control"placeholder="Existing Sticker Number">
+                                                <input type="text" id="id_Existing_Sticker_Number" name="Existing_Sticker_Number" class="form-control"placeholder="Existing Sticker Number">
                                              
                                              </div> 
 
@@ -218,7 +264,7 @@
                 
                 //$("#id_city").html(data); 
 
-
+                 
                  let html_data = '<option value=""></option>';
                  html_data='<label>Name</label>';
                  html_data +='<select name="Member_Name" class="form-control">'
@@ -229,7 +275,7 @@
                  });
                  html_data +='</select>'
                  
-                 $("#id_city").html(html_data);
+                 $("#id_member_name").html(html_data);
 
             
             }

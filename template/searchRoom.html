@@ -1,0 +1,951 @@
+{% extends "base.html" %}
+{% load bootstrap4 %}
+{% block  myblock %}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+<style>
+
+        .inline-flex-parent {
+                display: inline-flex;
+        }
+
+        /* #id_Maid,#id_Room{
+                display:inline;
+        } */
+
+        
+</style>
+
+         <!-- {{form}} -->
+ <center>
+                <br>
+                <div class ="col-md-4 mx-auto">               
+                        <h4 style="color:rgb(48, 2, 38); font-family:sans-serif;
+                        background-color:rgb(247, 174, 216);">Search Room Details</h4>
+                </div>
+                </center>            
+
+
+
+<div class="container">
+        <div class="row">
+                <div style="background-color:rgb(240, 216, 234); " class ="col-md-12 mx-auto">
+                
+                        
+                                <form action="" method="POST" enctype="multipart/form-data">
+                                        {% csrf_token %}
+                                        
+                                        
+                                        <div class="d-flex align-items-center justify-content-center">
+                                        <div class="form-group">
+                                                <label for="exampleInputEmail1">Room</label>
+                                                
+                                                <input class="form-control" id="id_Room_ID" name="Room" >
+                                                
+                                        </div>
+                                        </div>
+                                        <div class="d-flex align-items-center justify-content-center">
+                                        <input id="id_go" type="button" value="Get Details" class="btn btn-info">
+                                        <div>
+                                                &nbsp;    
+                                        </div>
+                                        <input id="id_reset" type="reset" value="Reset" class="btn btn-warning">
+                                        </div>
+                                
+                                        <div class="accordion" id="section"></div>
+                                        <div class="card" id="classOne">
+                                                <div class="card-header bg-primary" id="headingOne">
+                                                  <h2 class="mb-0">
+                                                    <button class="btn btn-link text-white" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                                      Primary Member Details
+                                                    </button>
+                                                  </h2>
+                                                </div>
+                                            
+                                                <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#section">
+                                                  <div class="card-body">
+
+                                                        
+                                                        <div class="container-fluid">
+                                                                <div class="row">
+                                                                        <div class='col-xl-5'>
+                                                                                <div  id="id_Name">
+                                                                                </div>
+                                                                                <div  id="id_Room">
+                                                                                </div>
+                                                                                <div  >  &nbsp;  
+                                                                                </div>
+                                                                                <div  id="id_DOB">
+                                                                                </div>
+                                                                                <div  id="id_Mobile">
+                                                                                </div>
+                                                                                <div  id="id_Email">
+                                                                                </div>
+                                                                                <div  id="id_Institution_Name">
+                                                                                </div>
+                                                                                <div  id="id_Staff_Working_Since">
+                                                                                </div>
+                                                                                
+                                                                                <div  id="id_Blood_Group">
+                                                                                </div>
+                                                                                <div  id="Remarks">
+                                                                                </div>
+                                                                                
+                                                                                
+                                                                        </div>
+                                                                        <div class='col-xl-5'>
+                                                                                <div  id="id_Member_Occupant">   
+                                                                                </div>
+                                                                                <div  id="id_Room_Type">
+                                                                                </div>
+                                                                                <div  id="id_Aadhaar_ID">
+                                                                                </div>
+                                                                                <div  id="id_Whatsapp">
+                                                                                </div>
+                                                                                <div  id="id_Landline_Number">
+                                                                                </div>
+                                                                                <div  id="id_Sub_Division_Name">
+                                                                                </div>
+                                                                                <div  id="id_Staff_Institution_Emp_ID">
+                                                                                </div>
+                                                                                <div  id="id_SSSIHMS_PG_Patient_ID">
+                                                                                </div>
+
+
+                                                                        </div>
+
+                                                                        <div class='col-xl-2'>
+                                                                                <div  id="Photo_File_Name">    
+                                                                                </div>
+
+                                                                </div>
+                                                        </div>
+                                                                                                               
+                                                  </div>
+                                                </div>
+                                              </div>
+                                        </div>
+                                              
+                                        <div class="card" id="classTwo">
+                                                <div class="card-header bg-success" id="headingTwo">
+                                                  <h2 class="mb-0">
+                                                    <button class="btn btn-link text-white" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+                                                      Occupants Details
+                                                    </button>
+                                                  </h2>
+                                                </div>
+                                            
+                                                <div id="collapseTwo" class="collapse show" aria-labelledby="headingTwo" data-parent="#section">
+                                                  <div class="card-body">
+
+                                                        
+                                                        <div class="container-fluid">
+                                                                <div class="row">
+                                                                        <div class='col-xl-5'>
+
+                                                                                <div id="id_member_name">
+
+                                                                                </div>
+                                                                                <div  id="id_Name1">
+                                                                                </div>
+                                                                                
+                                                                                
+                                                                                <div  id="id_DOB1">
+                                                                                </div>
+                                                                                <div  id="id_Mobile1">
+                                                                                </div>
+                                                                                <div  id="id_Email1">
+                                                                                </div>
+                                                                                <div  id="id_Institution_Name1">
+                                                                                </div>
+                                                                                <div  id="id_Staff_Working_Since1">
+                                                                                </div>
+                                                                                
+                                                                                <div  id="id_Blood_Group1">
+                                                                                </div>
+                                                                                <div  id="Remarks1">
+                                                                                </div>
+                                                                                
+                                                                                
+                                                                        </div>
+                                                                        <div class='col-xl-5'>
+                                                                                <div  id="id_Member_Occupant1">   
+                                                                                </div>
+                                                                                <div  >  &nbsp;  
+                                                                                </div>
+                                                                                
+                                                                                <div  id="id_Aadhaar_ID1">
+                                                                                </div>
+                                                                                <div  id="id_Whatsapp1">
+                                                                                </div>
+                                                                                <div  id="id_Landline_Number1">
+                                                                                </div>
+                                                                                <div  id="id_Sub_Division_Name1">
+                                                                                </div>
+                                                                                <div  id="id_Staff_Institution_Emp_ID1">
+                                                                                </div>
+                                                                                <div  id="id_SSSIHMS_PG_Patient_ID1">
+                                                                                </div>
+
+
+                                                                        </div>
+
+                                                                        <div class='col-xl-2'>
+                                                                                <div  id="Photo_File_Name1">    
+                                                                                </div>
+
+                                                                </div>
+                                                        </div>
+                                                                                                               
+                                                  </div>
+                                                </div>
+                                              </div>
+                                        </div>
+
+                                        <div class="card" id="classThree">
+                                                <div class="card-header bg-danger" id="headingThree">
+                                                  <h2 class="mb-0">
+                                                    <button class="btn btn-link text-white" type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="true" aria-controls="collapseThree">
+                                                      Vehicles Details
+                                                    </button>
+                                                  </h2>
+                                                </div>
+                                            
+                                                <div id="collapseThree" class="collapse show" aria-labelledby="headingThree" data-parent="#section">
+                                                  <div class="card-body">
+
+                                                        
+                                                        <div class="container-fluid">
+                                                                <div class="row">
+                                                                        <div class='col-xl-5'>
+
+                                                                                <div id="id_vehicle2">
+
+                                                                                </div>
+                                                                                <div  id="id_tf2">
+                                                                                </div>
+                                                                                
+                                                                                
+                                                                                <div  id="id_dlv2">
+                                                                                </div>
+                                                                                <div  id="id_iv2">
+                                                                                </div>
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+                                                                        </div>
+                                                                        <div class='col-xl-5'>
+                                                                                <div  id="id_sn2">   
+                                                                                </div>
+                                                                                
+                                                                                
+                                                                                <div  id="id_dl2">
+                                                                                </div>
+                                                                                <div  id="id_rcv2">
+                                                                                </div>
+
+                                                                                <div  id="id_remarks2">
+                                                                                </div>
+                                                                                
+
+
+                                                                        </div>
+                                                                        
+
+                                                                        
+
+                                                                </div>
+                                                        </div>
+                                                                                                               
+                                                  </div>
+                                                </div>
+                                              
+                                        </div>
+
+                                        <div class="card" id="classFour">
+                                                <div class="card-header bg-warning" id="headingFour">
+                                                  <h2 class="mb-0">
+                                                    <button class="btn btn-link text-white" type="button" data-toggle="collapse" data-target="#collapseFour" aria-expanded="true" aria-controls="collapseFour">
+                                                      Maids Details
+                                                    </button>
+                                                  </h2>
+                                                </div>
+                                            
+                                                <div id="collapseFour" class="collapse show" aria-labelledby="headingFour" data-parent="#section">
+                                                  <div class="card-body">
+
+                                                        
+                                                        <div class="container-fluid">
+                                                                <div class="row">
+                                                                        <div class='col-xl-5'>
+
+                                                                                
+                                                                                <div  id="id_name3">
+                                                                                </div>
+                                                                                
+                                                                                
+                                                                                <div  id="id_relation3">
+                                                                                </div>
+                                                                                <div  id="id_nd3">
+                                                                                </div>
+                                                                                
+                                                                                <div  id="id_mob3">
+                                                                                </div>
+                                                                                <div  id="id_add3">
+                                                                                </div>
+                                                                                
+                                                                                <div  id="id_rem3">
+                                                                                </div>
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+                                                                        </div>
+                                                                        <div class='col-xl-5'>
+                                                                                <div id="id_maid3">
+                                                                                </div>
+
+                                                                                <div  id="id_rel_name3">
+                                                                                </div>
+
+                                                                                <div  id="id_val3">
+                                                                                </div>
+
+                                                                                <div  id="id_aadhaar3">
+                                                                                </div>
+
+                                                                                <div  id="id_yob3">
+                                                                                </div>
+                                                                                
+                                                                                
+                                   
+                                                                                
+
+
+                                                                        </div>
+                                                                        <div class='col-xl-2'>
+                                                                                <div  id="Photo_File_Name3">    
+                                                                                </div>
+
+                                                                </div>
+
+                                                                        
+
+                                                                </div>
+                                                        </div>
+                                                                                                               
+                                                  </div>
+                                                </div>
+                                              </div>
+                                        </div>
+
+                                        
+                                        
+
+
+                                        
+                                        
+                                        
+                                        
+                                        
+                                        <!-- {{form.as_table}} -->
+                                        <!-- <hr> -->
+                                                
+
+
+                                        <div class="container">
+                                                <div class="center">
+                                        <input id="id_print" type="button" value="Print" class="btn btn-success">
+                                        <!-- <input type="submit" value="Out" class="btn btn-danger"> -->
+                                        </div>
+                                </div>
+                        </div>
+                                        <!-- </hr> -->
+                                        
+                                       
+
+                                        
+
+                                </form>
+                        
+                </div>
+        </div>
+</div>
+
+<script>
+
+        $(document).ready(function() { 
+                
+                $('#headingOne').hide()
+                $('#headingTwo').hide()
+                $('#headingThree').hide()
+                $('#headingFour').hide()
+                $('#classOne').hide()
+                $('#classTwo').hide()
+                $('#classThree').hide()
+                $('#classFour').hide()
+                
+        }); 
+
+        
+        $("#id_go").click(function () { 
+       
+               console.log("change")
+                $('#headingOne').show()
+                $('#headingTwo').show()
+                $('#headingThree').show()
+                $('#headingFour').show()
+                $('#classOne').show()
+                $('#classTwo').show()
+                $('#classThree').show()
+                $('#classFour').show()
+
+                       
+               const url='{% url "searchRoom" %}'
+               const Room=$("#id_Room_ID").val();
+               
+               $.ajax({
+                   url: url,                    
+                   data: {
+                       'Room': Room
+                   },
+                   success: function (data) {   
+                        
+                        let name_data = '<option value=""></option>';
+                        name_data='<b>Name</b>';
+                        name_data+='&emsp; '
+                        name_data+=data.Name;    
+                        
+                        let mo_data = '<option value=""></option>';
+                        mo_data='<b>Staff/ Not</b>';
+                        mo_data+='&emsp; '
+                        mo_data+=data.Member_Occupant; 
+
+                        let cat_data = '<option value=""></option>';
+                        cat_data='<b>Category</b>';
+                        cat_data+='&emsp; '
+                        cat_data+=data.Category; 
+
+                        let rtype_data = '<option value=""></option>';
+                        rtype_data='<b>Room Type</b>';
+                        rtype_data+='&emsp;'
+                        rtype_data+=data.Room_Type; 
+
+                        let room_data = '<option value=""></option>';
+                        room_data='<b>Room</b>';
+                        room_data+='&emsp; '
+                        room_data+=data.Room; 
+
+                        let age_data = '<option value=""></option>';
+                        age_data='<b>Age</b>';
+                        age_data+='&emsp; '
+                        age_data+=data.DOB; 
+
+                        let mobile_data = '<option value=""></option>';
+                        mobile_data='<b>Mobile</b>';
+                        mobile_data+='&emsp; '
+                        mobile_data+=data.Mobile; 
+
+                        let aadhaar_data = '<option value=""></option>';
+                        aadhaar_data='<b>Aadhaar ID</b>';
+                        aadhaar_data+='&emsp; '
+                        aadhaar_data+=data.Aadhaar_ID; 
+
+                        let whatsapp_data = '<option value=""></option>';
+                        whatsapp_data='<b>Whatsapp</b>';
+                        whatsapp_data+='&emsp; '
+                        whatsapp_data+=data.Whatsapp; 
+
+                        
+
+                        let lln_data = '<option value=""></option>';
+                        lln_data='<b>Landline Number</b>';
+                        lln_data+='&emsp; '
+                        lln_data+=data.Landline_Number; 
+
+                        let email_data = '<option value=""></option>';
+                        email_data='<b>Email</b>';
+                        email_data+='&emsp; '
+                        email_data+=data.Email; 
+
+                        let bg_data = '<option value=""></option>';
+                        bg_data='<b>Blood Group</b>';
+                        bg_data+='&emsp; '
+                        bg_data+=data.Blood_Group; 
+
+                        let sspid_data = '<option value=""></option>';
+                        sspid_data='<b>SSSIHMS PG Patient ID</b>';
+                        sspid_data+='&emsp; '
+                        sspid_data+=data.SSSIHMS_PG_Patient_ID; 
+
+                        let inst_data = '<option value=""></option>';
+                        inst_data='<b>Institution Name</b>';
+                        inst_data+='&emsp; '
+                        inst_data+=data.Institution_Name; 
+
+                        let sd_data = '<option value=""></option>';
+                        sd_data='<b>Sub_Division_Name</b>';
+                        sd_data+='&emsp; '
+                        sd_data+=data.Sub_Division_Name; 
+
+                        let sws_data = '<option value=""></option>';
+                        sws_data='<b>Staff Working Since</b>';
+                        sws_data+='&emsp; '
+                        sws_data+=data.Staff_Working_Since; 
+
+                        let emp_id_data = '<option value=""></option>';
+                        emp_id_data='<b>Staff Employee ID</b>';
+                        emp_id_data+='&emsp; '
+                        emp_id_data+=data.Staff_Institution_Emp_ID; 
+
+                        let remarks = '<option value=""></option>';
+                        remarks='<b>Remarks</b>';
+                        remarks+='&emsp; '
+                        remarks+=data.Remarks; 
+
+                        let var_photo_file='';
+                        var_photo_file+='/media/';
+                        var_photo_file+=data.Photo_File_Name;
+
+                        let photo = '<option value=""></option>';
+                        // photo='<b>Photo</b>';
+                        photo+='&emsp; &emsp; &emsp; &emsp; &emsp; &emsp; ';
+                        photo+='<img width="150" height="150" src=';
+                        photo+=var_photo_file;
+                        photo+='/>' 
+                        
+                        
+                        if (name_data!='<b>Name</b>&emsp; undefined') {
+                                
+                                
+                                $("#id_Name").html(name_data);
+                                $("#id_Member_Occupant").html(mo_data);
+                                $("#id_Category").html(cat_data);
+                                $("#id_Room_Type").html(rtype_data);
+                                $("#id_Room").html(room_data);
+                                $("#id_DOB").html(age_data);
+                                $("#id_Mobile").html(mobile_data);
+                                $("#id_Aadhaar_ID").html(aadhaar_data);
+                                $("#id_Whatsapp").html(whatsapp_data);
+                                $("#id_Landline_Number").html(lln_data);
+                                $("#id_Email").html(email_data);
+                                $("#id_Blood_Group").html(bg_data);
+                                $("#id_SSSIHMS_PG_Patient_ID").html(sspid_data);
+                                $("#id_Institution_Name").html(inst_data);
+                                $("#id_Sub_Division_Name").html(sd_data);
+                                $("#id_Staff_Working_Since").html(sws_data);
+                                $("#id_Staff_Institution_Emp_ID").html(emp_id_data);
+                                $("#Remarks").html(remarks);
+                                $("#Photo_File_Name").html(photo);
+                        } else {
+                                $("#id_Name").html("Data not available")
+                                $("#id_Member_Occupant").html("");
+                $("#id_Category").html("");
+                $("#id_Room_Type").html("");
+                $("#id_Room").html("");
+                $("#id_DOB").html("");
+                $("#id_Mobile").html("");
+                $("#id_Aadhaar_ID").html("");
+                $("#id_Whatsapp").html("");
+                $("#id_Landline_Number").html("");
+                $("#id_Email").html("");
+                $("#id_Blood_Group").html("");
+                $("#id_SSSIHMS_PG_Patient_ID").html("");
+                $("#id_Institution_Name").html("");
+                $("#id_Sub_Division_Name").html("");
+                $("#id_Staff_Working_Since").html("");
+                $("#id_Staff_Institution_Emp_ID").html("");
+                $("#Remarks").html("");
+                $("#Photo_File_Name").html("");
+                        }
+                        
+                        
+                //         let html_data = '<option value=""></option>';
+                //         html_data='<label>Name</label>';
+                //         html_data +='<select name="Member_Name" class="form-control">'
+                //         data.forEach(function (name) {
+                        
+                //         html_data += `<option name="Member_Name">${name}</option>`
+                        
+                //  });
+                //  html_data +='</select>'
+                 
+                //  $("#id_member_name").html(html_data);
+
+
+                        let name_data1 = '<option value=""></option>';
+                        name_data1='<b>Name</b>';
+                        name_data1+='&emsp; '
+                        name_data1+=data.Name1;    
+
+                        if ((name_data1=='<b>Name</b>&emsp; ') || (name_data1=='<b>Name</b>&emsp; undefined') ){
+                                
+                                name_data1="<b>Name</b>&emsp; "
+                                
+
+                        }
+                        
+                        let mo_data1 = '<option value=""></option>';
+                        mo_data1='<b>Staff/ Not</b>';
+                        mo_data1+='&emsp; '
+                        mo_data1+=data.Member_Occupant1; 
+
+                        let cat_data1 = '<option value=""></option>';
+                        cat_data1='<b>Category</b>';
+                        cat_data1+='&emsp; '
+                        cat_data1+=data.Category1; 
+
+                        let rtype_data1 = '<option value=""></option>';
+                        rtype_data1='<b>Room Type</b>';
+                        rtype_data1+='&emsp;'
+                        rtype_data1+=data.Room_Type1; 
+
+                        let room_data1 = '<option value=""></option>';
+                        room_data1='<b>Room</b>';
+                        room_data1+='&emsp; '
+                        room_data1+=data.Room1; 
+
+                        let age_data1 = '<option value=""></option>';
+                        age_data1='<b>Age</b>';
+                        age_data1+='&emsp; '
+                        age_data1+=data.DOB1; 
+
+                        let mobile_data1 = '<option value=""></option>';
+                        mobile_data1='<b>Mobile</b>';
+                        mobile_data1+='&emsp; '
+                        mobile_data1+=data.Mobile1; 
+
+                        let aadhaar_data1 = '<option value=""></option>';
+                        aadhaar_data1='<b>Aadhaar ID</b>';
+                        aadhaar_data1+='&emsp; '
+                        aadhaar_data1+=data.Aadhaar_ID1; 
+
+                        let whatsapp_data1 = '<option value=""></option>';
+                        whatsapp_data1='<b>Whatsapp</b>';
+                        whatsapp_data1+='&emsp; '
+                        whatsapp_data1+=data.Whatsapp1; 
+
+                        
+
+                        let lln_data1 = '<option value=""></option>';
+                        lln_data1='<b>Landline Number</b>';
+                        lln_data1+='&emsp; '
+                        lln_data1+=data.Landline_Number1; 
+
+                        let email_data1 = '<option value=""></option>';
+                        email_data1='<b>Email</b>';
+                        email_data1+='&emsp; '
+                        email_data1+=data.Email1; 
+
+                        let bg_data1 = '<option value=""></option>';
+                        bg_data1='<b>Blood Group</b>';
+                        bg_data1+='&emsp; '
+                        bg_data1+=data.Blood_Group1; 
+
+                        let sspid_data1 = '<option value=""></option>';
+                        sspid_data1='<b>SSSIHMS PG Patient ID</b>';
+                        sspid_data1+='&emsp; '
+                        sspid_data1+=data.SSSIHMS_PG_Patient_ID1; 
+
+                        let inst_data1 = '<option value=""></option>';
+                        inst_data1='<b>Institution Name</b>';
+                        inst_data1+='&emsp; '
+                        inst_data1+=data.Institution_Name1; 
+
+                        let sd_data1 = '<option value=""></option>';
+                        sd_data1='<b>Sub_Division_Name</b>';
+                        sd_data1+='&emsp; '
+                        sd_data1+=data.Sub_Division_Name1; 
+
+                        let sws_data1 = '<option value=""></option>';
+                        sws_data1='<b>Staff Working Since</b>';
+                        sws_data1+='&emsp; '
+                        sws_data1+=data.Staff_Working_Since1; 
+
+                        let emp_id_data1 = '<option value=""></option>';
+                        emp_id_data1='<b>Staff Employee ID</b>';
+                        emp_id_data1+='&emsp; '
+                        emp_id_data1+=data.Staff_Institution_Emp_ID1; 
+
+                        let remarks1 = '<option value=""></option>';
+                        remarks1='<b>Remarks</b>';
+                        remarks1+='&emsp; '
+                        remarks1+=data.Remarks1; 
+
+                        let var_photo_file1='';
+                        var_photo_file1+='/media/';
+                        var_photo_file1+=data.Photo_File_Name1;
+
+                        let photo1 = '<option value=""></option>';
+                        // photo='<b>Photo</b>';
+                        photo1+='&emsp; &emsp; &emsp; &emsp; &emsp; &emsp; ';
+                        photo1+='<img width="150" height="150" src=';
+                        photo1+=var_photo_file1;
+                        photo1+='/>' 
+                        
+                        
+                        if (name_data1!='<b>Name</b>&emsp; ') {
+                                
+                                
+                                $("#id_Name1").html(name_data1);
+                                $("#id_Member_Occupant1").html(mo_data1);
+                                $("#id_Category1").html(cat_data1);
+                                $("#id_Room_Type1").html(rtype_data1);
+                                $("#id_Room1").html(room_data1);
+                                $("#id_DOB1").html(age_data1);
+                                $("#id_Mobile1").html(mobile_data1);
+                                $("#id_Aadhaar_ID1").html(aadhaar_data1);
+                                $("#id_Whatsapp1").html(whatsapp_data1);
+                                $("#id_Landline_Number1").html(lln_data1);
+                                $("#id_Email1").html(email_data1);
+                                $("#id_Blood_Group1").html(bg_data1);
+                                $("#id_SSSIHMS_PG_Patient_ID1").html(sspid_data1);
+                                $("#id_Institution_Name1").html(inst_data1);
+                                $("#id_Sub_Division_Name1").html(sd_data1);
+                                $("#id_Staff_Working_Since1").html(sws_data1);
+                                $("#id_Staff_Institution_Emp_ID1").html(emp_id_data1);
+                                $("#Remarks1").html(remarks1);
+                                $("#Photo_File_Name1").html(photo1);
+                        } else {
+                                $("#id_Name1").html("Data not available/ No occupant in the room");
+                $("#id_Member_Occupant1").html("");
+                $("#id_Category1").html("");
+                $("#id_Room_Type1").html("");
+                $("#id_Room1").html("");
+                $("#id_DOB1").html("");
+                $("#id_Mobile1").html("");
+                $("#id_Aadhaar_ID1").html("");
+                $("#id_Whatsapp1").html("");
+                $("#id_Landline_Number1").html("");
+                $("#id_Email1").html("");
+                $("#id_Blood_Group1").html("");
+                $("#id_SSSIHMS_PG_Patient_ID1").html("");
+                $("#id_Institution_Name1").html("");
+                $("#id_Sub_Division_Name1").html("");
+                $("#id_Staff_Working_Since1").html("");
+                $("#id_Staff_Institution_Emp_ID1").html("");
+                $("#Remarks1").html("");
+                $("#Photo_File_Name1").html("");
+                        }
+                                               
+                        
+                        
+                        let vehicle = '<option value=""></option>';
+                        vehicle='<b>Vehicle No.</b>';
+                        vehicle+='&emsp; '
+                        vehicle+=data.Vehicle2;  
+
+                        if ((vehicle=='<b>Vehicle No.</b>&emsp; ') || (vehicle=='<b>Vehicle No.</b>&emsp; undefined') ){
+                                
+                                vehicle="<b>Vehicle No.</b>&emsp; "
+                                
+
+                        }
+                        
+                        let sn = '<option value=""></option>';
+                        sn='<b>Existing Sticker Number</b>';
+                        sn+='&emsp; '
+                        sn+=data.Existing_Sticker_Number2;
+                        
+                        let tf = '<option value=""></option>';
+                        tf='<b>Two/ Four Wheeler</b>';
+                        tf+='&emsp; '
+                        tf+=data.Two_Four_Wheeler2; 
+
+                        let dl = '<option value=""></option>';
+                        dl='<b>DL No.</b>';
+                        dl+='&emsp; '
+                        dl+=data.DL_No2; 
+
+                        let dlv = '<option value=""></option>';
+                        dlv='<b>DL Validity</b>';
+                        dlv+='&emsp;'
+                        dlv+=data.DL_Validity2; 
+
+                        let rcv = '<option value=""></option>';
+                        rcv='<b>RC Validity</b>';
+                        rcv+='&emsp; '
+                        rcv+=data.RC_Valid_Upto2; 
+
+                        let iv = '<option value=""></option>';
+                        iv='<b>Insurance Validity</b>';
+                        iv+='&emsp; '
+                        iv+=data.Insurance_Valid_Upto2; 
+
+                        let remarks2 = '<option value=""></option>';
+                        remarks2='<b>Remarks</b>';
+                        remarks2+='&emsp; '
+                        remarks2+=data.Remarks2; 
+
+                     
+                        
+                        if (vehicle!='<b>Vehicle No.</b>&emsp; ') {
+                                $("#id_vehicle2").html(vehicle);
+                                $("#id_tf2").html(tf);
+                                $("#id_dl2").html(dl);
+                                $("#id_dlv2").html(dlv);
+                                $("#id_rcv2").html(rcv);
+                                $("#id_iv2").html(iv);
+                                $("#id_remarks2").html(remarks2);
+                                $("#id_sn2").html(sn);
+                        }
+                        else{
+                                $("#id_vehicle2").html("Data not available/ No vehicle associated with the room");
+                                
+                $("#id_tf2").html("");
+                $("#id_dl2").html("");
+                $("#id_dlv2").html("");
+                $("#id_rcv2").html("");
+                $("#id_iv2").html("");
+                $("#id_remarks2").html("");
+                $("#id_sn2").html("");
+
+                
+                                
+                        }
+
+                       
+                        
+                        let maid_name = '<option value=""></option>';
+                        maid_name='<b>Name</b>';
+                        maid_name+='&emsp; '
+                        maid_name+=data.Maid_Name;
+
+                        if ((maid_name=='<b>Name</b>&emsp; ') || (maid_name=='<b>Name</b>&emsp; undefined') ){
+                                
+                                maid_name="<b>Name</b>&emsp; "
+                                
+
+                        }
+
+                        let maid_rel = '<option value=""></option>';
+                        maid_rel='<b>Relation</b>';
+                        maid_rel+='&emsp; '
+                        maid_rel+=data.Rel;
+
+                        let nd = '<option value=""></option>';
+                        nd='<b>Night duty permitted?</b>';
+                        nd+='&emsp; '
+                        nd+=data.ND;
+
+                        let mob3 = '<option value=""></option>';
+                        mob3='<b>Mobile</b>';
+                        mob3+='&emsp; '
+                        mob3+=data.Mobile3;
+
+                        let add3 = '<option value=""></option>';
+                        add3='<b>Address</b>';
+                        add3+='&emsp; '
+                        add3+=data.Address3;
+
+                        let rem3 = '<option value=""></option>';
+                        rem3='<b>Remarks</b>';
+                        rem3+='&emsp; '
+                        rem3+=data.Remarks3;
+
+                        let idmaid3 = '<option value=""></option>';
+                        idmaid3='<b>Maid ID</b>';
+                        idmaid3+='&emsp; '
+                        idmaid3+=data.Maid_id;
+
+                        let relname3 = '<option value=""></option>';
+                        relname3='<b>Relation Name</b>';
+                        relname3+='&emsp; '
+                        relname3+=data.Rel_Name;
+
+                        let val3 = '<option value=""></option>';
+                        val3='<b>Validity</b>';
+                        val3+='&emsp; '
+                        val3+=data.Validity;
+
+                        let aadhaar3 = '<option value=""></option>';
+                        aadhaar3='<b>Aadhaar ID</b>';
+                        aadhaar3+='&emsp; '
+                        aadhaar3+=data.Aadhaar3;
+
+                        let yob3 = '<option value=""></option>';
+                        yob3='<b>Year of Birth</b>';
+                        yob3+='&emsp; '
+                        yob3+=data.DOB3;
+
+                        let var_photo_file3='';
+                        var_photo_file3+='/media/';
+                        var_photo_file3+=data.Photo_File_Name3;
+
+                        let photo3 = '<option value=""></option>';
+                        // photo='<b>Photo</b>';
+                        photo3+='&emsp; &emsp; &emsp; &emsp; &emsp; &emsp; ';
+                        photo3+='<img width="150" height="150" src=';
+                        photo3+=var_photo_file3;
+                        photo3+='/>' 
+                        
+
+                        if (maid_name!='<b>Name</b>&emsp; ') {
+                                $("#id_name3").html(maid_name);
+                                $("#id_relation3").html(maid_rel);
+                                $("#id_nd3").html(nd);
+                                $("#id_mob3").html(mob3);
+                                $("#id_add3").html(add3);
+                                $("#id_rem3").html(rem3);
+                                $("#id_maid3").html(idmaid3);
+                                $("#id_rel_name3").html(relname3);
+                                $("#id_val3").html(val3);
+                                $("#id_aadhaar3").html(aadhaar3);
+                                $("#id_yob3").html(yob3);
+                                $("#Photo_File_Name3").html(photo3);
+                        }
+                        else{
+                                $("#id_name3").html("Data not available/ No maid associated with the room");
+                                
+                $("#id_relation3").html("");
+                $("#id_nd3").html("");
+                $("#id_mob3").html("");
+                $("#id_add3").html("");
+                $("#id_rem3").html("");
+                $("#id_maid3").html("");
+                $("#id_rel_name3").html("");
+                $("#id_val3").html("");
+                $("#id_aadhaar3").html("");
+                $("#id_yob3").html("");
+                $("#Photo_File_Name3").html("");
+                        }
+
+
+                        // $("#id_go").hide();
+                        
+                        
+                        
+                   
+                   }
+               });
+       
+       
+       
+       
+       
+            });
+           
+       
+       
+       
+       
+        
+             </script>
+
+{% if status %}
+        <script>
+                alert("{{status}}")
+        </script>
+{% endif %}
+
+{% if errorStatus %}
+        <script>
+                alert("{{errorStatus}}")
+        </script>
+{% endif %}
+
+
+
+{% endblock %}

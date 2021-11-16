@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+{% load bootstrap4 %}
+{% block  myblock %}
+
+
+
+         <!-- {{form}} -->
+         <center>
+                <br>
+                <div class ="col-md-4 mx-auto">               
+                        <h4 style="color:rgb(48, 2, 38); font-family:sans-serif;
+                        background-color:rgb(247, 174, 216);">Temporary Vehicle Details</h4>
+                </div>
+                </center>           
+
+
+
+<div class="container">
+        <div class="row">
+                <div style="background-color:rgb(240, 216, 234); " class ="col-md-6 mx-auto">
+                        
+                                <form action="" method="POST" enctype="multipart/form-data">
+                                        {% csrf_token %}
+                                        
+
+                                        {% bootstrap_form temp_veh_form %}
+                                        
+                                        <!-- {{form.as_table}} -->
+                                        <!-- <hr> -->
+                                        <p><input type="submit" value="Save Details" class="btn btn-primary"></p>
+                                        <!-- </hr> -->
+                                        
+                                       
+
+                                        
+
+                                </form>
+                        
+                </div>
+        </div>
+</div>
+
+
+
+{% if status %}
+        <script>
+                alert("{{status}}")
+        </script>
+{% endif %}
+
+{% if errorStatus %}
+        <script>
+                alert("{{errorStatus}}")
+        </script>
+{% endif %}
+
+
+
+{% endblock %}

@@ -13,12 +13,13 @@
 </style>
 
          <!-- {{form}} -->
-<center>
-        <div class ="col-md-4 mx-auto">               
-                <h1 style="color:rgb(48, 2, 38); font-family:verdana;
-                background-color:rgb(247, 174, 216);">Vehicle Movement</h1>
-        </div>
-</center>            
+         <center>
+                <br>
+                <div class ="col-md-4 mx-auto">               
+                        <h4 style="color:rgb(48, 2, 38); font-family:sans-serif;
+                        background-color:rgb(247, 174, 216);">Vehicle Movement</h4>
+                </div>
+                </center>           
 
 
 
@@ -32,23 +33,39 @@
                                         
                                         <!-- Room Field -->
                                         <div class="form-group">
-                                                <label for="exampleInputEmail1">{{vehicle_tr_form.Sticker_Number.label}}</label>
+                                                <label for="exampleInputEmail1">{{veh_ren_form.Sticker_Number.label}}</label>
                                                 
-                                                {{vehicle_tr_form.Sticker_Number}}
+                                                {{veh_ren_form.Sticker_Number}}
 
                                         </div>
 
-                                        <!-- Name Field -->
-                                                       
-                                        <div id="id_vehicle">
-
-                                        </div>
-                                        
-                                        <!-- {{form.as_table}} -->
-                                        <!-- <hr> -->
+                                        <div>
+                                                <input id="id_go" type="button" value="Get Details" class="btn btn-info">
+                                                <input id="id_reset" type="reset" value="Reset" class="btn btn-warning">
+                                                </div>
+        
+                                                <br>
+                                                </br>
+        
+                                                <div id="id_Vehicle_Num">
+                                                </div>
+        
+                                                <div id="id_Owner_Name">
+                                                </div>
+        
+                                                <!-- <div id="id_Mobile">
+                                                </div> -->
+        
+                                                <div id="id_Validity">
+                                                </div>
+        
+                                                
+                                                
+                                                <br>
+                                                </br>
                                         <div class="container">
                                                 <div class="center">
-                                        <input type="submit" value="Submit" class="btn btn-success">
+                                        <input id="id_submit" type="submit" value="Submit" class="btn btn-success">
                                         <!-- <input type="submit" value="Out" class="btn btn-danger"> -->
                                         </div>
                                 </div>
@@ -65,7 +82,75 @@
         </div>
 </div>
 
+
 <script>
+$(document).ready(function() { 
+        $('#id_submit').hide(); 
+        $('#id_Sticker_Number').val('');
+        $('#id_In_Out').hide();  
+}); 
+
+
+$("#id_go").click(function () { 
+
+       console.log("change")
+
+       const url='{% url "vehicle_transaction" %}'
+       const Sticker_Number=$("#id_Sticker_Number").val();
+      
+       $.ajax({
+           url: url,                    
+           data: {
+               'Sticker_Number': Sticker_Number
+           },
+           success: function (data) {   
+                
+                let veh_num_data = '<option value=""></option>';
+                veh_num_data='<b>Vehicle No.</b>';
+                veh_num_data+='&emsp; &emsp; &emsp; &emsp; '
+                veh_num_data+=data.num;                                             
+                
+                // let mobile_data = '<option value=""></option>';
+                // mobile_data='<b>Mobile No.</b>';
+                // mobile_data+='&emsp; &emsp; &emsp; &emsp; &emsp; &nbsp;'
+                // mobile_data+=data.mobile;     
+                
+                let name_data = '<option value=""></option>';
+                name_data='<b>Owner Name</b>';
+                name_data+='&emsp; &emsp; &emsp; &nbsp;'
+                name_data+=data.name;
+                
+                
+        
+
+                let validity_data = '<option value=""></option>';
+                validity_data='<b>Valid upto</b>';
+                validity_data+='&emsp; &emsp; &emsp; &emsp; &nbsp;'
+                validity_data+=data.validity; 
+
+                
+                
+                $("#id_submit").show();
+                $("#id_Vehicle_Num").html(veh_num_data);                      
+                $("#id_Owner_Name").html(name_data); 
+                // $("#id_Mobile").html(mobile_data);
+                $("#id_Validity").html(validity_data); 
+                $("#id_In_Out").val(data.in_out)
+                
+
+                // $("#id_go").hide();
+                
+                
+                
+           
+           }
+       });
+
+    });
+     </script>
+
+
+<!-- <script>
         $("#id_Sticker_Number").change(function () { 
        
                console.log("change")
@@ -113,7 +198,7 @@
        
        
         
-             </script>
+             </script> -->
 
 {% if status %}
         <script>

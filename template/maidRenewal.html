@@ -1,0 +1,225 @@
+{% extends "base.html" %}
+{% load bootstrap4 %}
+{% block  myblock %}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+<style>
+
+        #id_Maid_ID{
+           padding:5px;
+           width:100%;
+        }
+
+        /* #id_Maid,#id_Room{
+                display:inline;
+        } */
+
+        
+</style>
+
+         <!-- {{form}} -->
+ <center>
+                <br>
+                <div class ="col-md-4 mx-auto">               
+                        <h4 style="color:rgb(48, 2, 38); font-family:sans-serif;
+                        background-color:rgb(247, 174, 216);">Renew Maids Validity</h4>
+                </div>
+                </center>            
+
+
+
+<div class="container">
+        <div class="row">
+                <div style="background-color:rgb(240, 216, 234); " class ="col-md-6 mx-auto">
+                
+                        
+                                <form action="" method="POST" enctype="multipart/form-data">
+                                        {% csrf_token %}
+                                        
+                                        <!-- Room Field -->
+                                        <div class="form-group">
+                                                <label for="exampleInputEmail1">{{maid_ren_form.Maid_ID.label}}</label>
+                                                {{maid_ren_form.Maid_ID}}
+                                                
+                                        </div>
+
+                                        <div>
+                                        <input id="id_go" type="button" value="Get Details" class="btn btn-info">
+                                        <input id="id_reset" type="reset" value="Reset" class="btn btn-warning">
+                                        </div>
+
+                                        <br>
+                                        </br>
+                                        
+                                        <div id="id_Maid_Validity_Remarks">
+                                        </div>
+
+                                        <div id="id_Maid">
+                                        </div>
+
+                                        <div id="id_Room">
+                                        </div>
+
+                                        <div id="id_Maid_Aadhaar">
+                                        </div>
+
+                                        <div id="id_Maid_Night_Duty">
+                                        </div>
+
+                                        <div id="id_Maid_Validity">
+                                        </div>
+
+                                        
+
+                                        <div id="id_Maid_Photo">
+                                        </div>
+
+                                        <br>
+                                        </br>
+
+                                        <p><b>Validity will be automatically renewed to last day of the next quarter</b></p>
+
+                                        <!-- <div class="form-group">
+                                                <label for="exampleInputEmail1">{{maid_ren_form.Validity.label}}</label>
+                                                {{maid_ren_form.Validity}}
+                                                
+                                        </div> -->
+                                        
+                                        
+                                        
+                                        
+                                        <!-- {{form.as_table}} -->
+                                        <!-- <hr> -->
+                                        <div class="container">
+                                                <div class="center">
+                                        <input id="id_submit" type="submit" value="Renew" class="btn btn-success">
+                                        <!-- <input type="submit" value="Out" class="btn btn-danger"> -->
+                                        </div>
+                                </div>
+                        </div>
+                                        <!-- </hr> -->
+                                        
+                                       
+
+                                        
+
+                                </form>
+                        
+                </div>
+        </div>
+</div>
+
+<script>
+
+        $(document).ready(function() { 
+                $('#id_submit').hide(); 
+                $('#id_Maid_ID').val(''); 
+        }); 
+
+        
+        $("#id_go").click(function () { 
+       
+               console.log("change")
+       
+               const url='{% url "maidRenewal" %}'
+               const Maid_ID=$("#id_Maid_ID").val();
+              
+               $.ajax({
+                   url: url,                    
+                   data: {
+                       'Maid_ID': Maid_ID
+                   },
+                   success: function (data) {   
+                        
+                        let name_data = '<option value=""></option>';
+                        name_data='<b>Name</b>';
+                        name_data+='&emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &nbsp;'
+                        name_data+=data.name;                                             
+                        
+                        let aadhaar_data = '<option value=""></option>';
+                        aadhaar_data='<b>Aadhaar ID</b>';
+                        aadhaar_data+='&emsp; &emsp; &emsp; &emsp; &emsp; &nbsp;'
+                        aadhaar_data+=data.aadhaar;    
+                        
+                        let night_duty_data = '<option value=""></option>';
+                        night_duty_data='<b>Night Duty Permitted?</b>';
+                        night_duty_data+='&emsp; '
+                        night_duty_data+=data.night_duty;
+                        
+                        
+                        let var_photo_file='';
+                        var_photo_file+='/media/';
+                        var_photo_file+=data.photo;
+                        
+                        let maid_photo = '<option value=""></option>';
+                        maid_photo='<b>Photo</b>';
+                        maid_photo+='&emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp;';
+                        maid_photo+='<img src=';
+                        maid_photo+=var_photo_file;
+                        maid_photo+='/>'
+
+                        let validity_data = '<option value=""></option>';
+                        validity_data='<b>Valid upto</b>';
+                        validity_data+='&emsp; &emsp; &emsp; &emsp; &emsp; &nbsp; &nbsp;'
+                        validity_data+=data.validity;
+
+                        let validity_data_remarks = '<option value=""></option>';
+                        // validity_data='<b>Valid upto</b>';
+                        validity_data_remarks+='<h4><u>'
+                        validity_data_remarks+=data.validity_remarks
+                        validity_data_remarks+='</u></h4';
+
+                        let room_data = '<option value=""></option>';
+                        room_data='<b>Rooms Working in</b>';
+                        room_data+='&emsp; &emsp; &nbsp; &nbsp;'
+                        room_data+=data.room;
+                    
+                                               
+                        $("#id_Maid").html(name_data);
+                        $("#id_Maid_Aadhaar").html(aadhaar_data);
+                        $("#id_Maid_Night_Duty").html(night_duty_data);
+                        $("#id_Maid_Photo").html(maid_photo);
+                        $("#id_Maid_Validity").html(validity_data);
+                        $("#id_Room").html(room_data);
+                        $("#id_Maid_Validity_Remarks").html(validity_data_remarks);
+
+                        // $("#id_go").hide();
+                        $("#id_submit").show();
+
+                        // if(validity_data_remarks=="Renewal is already done for next quarter"){
+                        //         $("#id_submit").hide();
+                        // }
+                        
+                        
+                   
+                   }
+               });
+       
+       
+       
+       
+       
+            });
+           
+       
+       
+       
+       
+        
+             </script>
+
+{% if status %}
+        <script>
+                alert("{{status}}")
+        </script>
+{% endif %}
+
+{% if errorStatus %}
+        <script>
+                alert("{{errorStatus}}")
+        </script>
+{% endif %}
+
+
+
+{% endblock %}

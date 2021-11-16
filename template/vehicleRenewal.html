@@ -1,0 +1,180 @@
+{% extends "base.html" %}
+{% load bootstrap4 %}
+{% block  myblock %}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+<style>
+
+        #id_Sticker_Num{
+           padding:5px;
+           width:100%;
+        }
+
+        
+        
+</style>
+
+         <!-- {{form}} -->
+                <center>
+                <br>
+                <div class ="col-md-4 mx-auto">               
+                        <h4 style="color:rgb(48, 2, 38); font-family:sans-serif;
+                        background-color:rgb(247, 174, 216);">Renew Vehicle Validity</h4>
+                </div>
+                </center>            
+
+
+
+<div class="container">
+        <div class="row">
+                <div style="background-color:rgb(240, 216, 234); " class ="col-md-6 mx-auto">
+                
+                        
+                                <form action="" method="POST" enctype="multipart/form-data">
+                                        {% csrf_token %}
+                                        
+                                        <!-- Room Field -->
+                                        <div class="form-group">
+                                                <label for="exampleInputEmail1">{{veh_ren_form.Sticker_Num.label}}</label>
+                                                {{veh_ren_form.Sticker_Num}}
+                                                
+                                        </div>
+
+                                        <div>
+                                        <input id="id_go" type="button" value="Get Details" class="btn btn-info">
+                                        <input id="id_reset" type="reset" value="Reset" class="btn btn-warning">
+                                        </div>
+
+                                        <br>
+                                        </br>
+
+                                                                               
+                                        <div id="id_Vehicle_Validity_Remarks">
+                                        </div>
+
+                                        <div id="id_Vehicle_Num">
+                                        </div>
+
+                                        <div id="id_Owner_Name">
+                                        </div>
+
+                                        <div id="id_Vehicle_Validity">
+                                        </div>
+
+                                        
+                                        <br>
+                                        </br>
+
+                                        <p><b>Validity will be automatically renewed to last day of next year</b></p>
+
+                                        <div class="container">
+                                                <div class="center">
+                                        <input id="id_submit" type="submit" value="Renew" class="btn btn-success">
+                                        <!-- <input type="submit" value="Out" class="btn btn-danger"> -->
+                                        </div>
+                                </div>
+                        </div>
+                                        <!-- </hr> -->
+                                        
+                                       
+
+                                        
+
+                                </form>
+                        
+                </div>
+        </div>
+</div>
+
+<script>
+
+        $(document).ready(function() { 
+                $('#id_submit').hide(); 
+                $('#id_Sticker_Num').val(''); 
+        });
+
+        
+        $("#id_go").click(function () { 
+       
+               console.log("change")
+       
+               const url='{% url "vehicleRenewal" %}'
+               const Sticker_Num=$("#id_Sticker_Num").val();
+              
+               $.ajax({
+                   url: url,                    
+                   data: {
+                       'Sticker_Num': Sticker_Num
+                   },
+                success: function (data) {   
+                        
+                let veh_num_data = '<option value=""></option>';
+                veh_num_data='<b>Vehicle No.</b>';
+                veh_num_data+='&emsp; &emsp; &emsp; &emsp; '
+                veh_num_data+=data.num;                                             
+                
+                // let mobile_data = '<option value=""></option>';
+                // mobile_data='<b>Mobile No.</b>';
+                // mobile_data+='&emsp; &emsp; &emsp; &emsp; &emsp; &nbsp;'
+                // mobile_data+=data.mobile;     
+                
+                let name_data = '<option value=""></option>';
+                name_data='<b>Owner Name</b>';
+                name_data+='&emsp; &emsp; &emsp; &nbsp;'
+                name_data+=data.name;
+
+                let validity_data = '<option value=""></option>';
+                validity_data='<b>Valid upto</b>';
+                validity_data+='&emsp; &emsp; &emsp; &emsp; &nbsp;'
+                validity_data+=data.validity; 
+
+                let validity_data_remarks = '<option value=""></option>';
+                        // validity_data='<b>Valid upto</b>';
+                validity_data_remarks+='<h4><u>'
+                validity_data_remarks+=data.validity_remarks
+                validity_data_remarks+='</u></h4';
+                
+                $("#id_submit").show();
+                $("#id_Vehicle_Num").html(veh_num_data);                      
+                $("#id_Owner_Name").html(name_data); 
+                // $("#id_Mobile").html(mobile_data);
+                $("#id_Vehicle_Validity").html(validity_data);
+                $("#id_Vehicle_Validity_Remarks").html(validity_data_remarks)
+                
+                        // if(validity_data_remarks=="Renewal is already done for next quarter"){
+                        //         $("#id_submit").hide();
+                        // }
+                        
+                        
+                   
+                   }
+               });
+       
+       
+       
+       
+       
+            });
+           
+       
+       
+       
+       
+        
+             </script>
+
+{% if status %}
+        <script>
+                alert("{{status}}")
+        </script>
+{% endif %}
+
+{% if errorStatus %}
+        <script>
+                alert("{{errorStatus}}")
+        </script>
+{% endif %}
+
+
+
+{% endblock %}

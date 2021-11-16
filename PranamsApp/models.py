@@ -1,5 +1,11 @@
 from django.db import models
 from django.utils.html import mark_safe
+from calendar import monthrange
+import calendar
+from datetime import datetime
+from datetime import date
+from datetime import timedelta
+from river.models.fields.state import StateField
 
 ## Blood Group Dropdown
 BLOOD_GROUP_CHOICES = (
@@ -133,8 +139,21 @@ CHOICES = (
     ('no','No')
 )
 MEMBER_CHOICES=(
-    ('member','Staff'),
+    ('member','Primary Member'),
     ('occupant','Occupant')
+)
+
+VEHICLE_OWNER_CHOICES=(
+    ('ashramResident','Ashram Resident'),
+    ('notAshramResident','Residing Outside Ashram')
+)
+
+VEHICLE_TYPE_CHOICES=(
+    ('taxi','Taxi'),
+    ('tatamagic','Tata Magic'),
+    ('van','Van'),
+    ('bus','Bus'),
+    ('car','Car')
 )
 # class Vehicle_Master(models.Model):
 #     Room=models.ForeignKey(Room_Master, on_delete=models.CASCADE)
@@ -230,7 +249,7 @@ class Gate_Master(models.Model):
 #     Updated_By=models.CharField(max_length=10,default='Admin')
 #     Status=models.CharField(max_length=2,default='Y')
 
-class add_demography(models.Model):
+class Demography(models.Model):
     Room=models.ForeignKey(Room_Master, on_delete=models.CASCADE, blank=True,null=True)
     Member_Occupant= models.CharField(max_length=15, choices=MEMBER_CHOICES,
     verbose_name="Is the Occupant a Staff/ Not?",null=True,blank=True)
@@ -268,6 +287,7 @@ class add_demography(models.Model):
     Updated_Date=models.DateTimeField(auto_now_add = True)
     Updated_By=models.CharField(max_length=10,default='Admin')
     Status=models.CharField(max_length=2,default='Y')
+    my_state_field = StateField()
     def __str__(self):
         return self.Name
     
@@ -303,23 +323,28 @@ class add_demography(models.Model):
 #         return self.name
 
 #Updated one -- 8-Jul-2021
-class add_vehicle(models.Model):
+class Vehicle(models.Model):
+    Type_Of_Owner=models.CharField(max_length=50,choices=VEHICLE_OWNER_CHOICES)
     Room=models.ForeignKey(Room_Master, on_delete=models.CASCADE)
     #Vehicle_Available=models.CharField(max_length=3, choices=CHOICES)
     Member_Occupant=models.CharField(max_length=15,choices=MEMBER_CHOICES,)
-    Member_Name=models.ForeignKey(add_demography,on_delete=models.CASCADE,
+    Member_Name=models.ForeignKey(Demography,on_delete=models.CASCADE,
                         null=True,blank=True)
+    Owner_Name = models.CharField(max_length=50, null=True, blank=True)
+    Mobile = models.IntegerField(blank=True,null=True) #TO enable 
     #Member_PRANAMS_ID=models.ForeignKey(Member_Master, on_delete=models.CASCADE)
     #Occupant_Name=models.ForeignKey(Occupant_Master, on_delete=models.CASCADE)
     #Vehicle_PRANAMS_ID=models.CharField(primary_key=True,max_length=10)
     Vehicle_No=models.CharField(max_length=20)
     Two_Four_Wheeler=models.CharField(max_length=5,choices=TWO_FOUR_WHEELER)
+    #Validity=models.DateField(null=True,blank=True,verbose_name="Vehicle Allowed till in YYYY-MM-DD") 
     DL_No=models.CharField(max_length=50,null=True,blank=True)
     DL_Validity=models.DateField(verbose_name="DL Valid Upto in YYYY-MM-DD",null=True,blank=True)
     #RC_No=models.CharField(max_length=30)
     RC_Valid_Upto=models.DateField(verbose_name="RC Valid Upto in YYYY-MM-DD",null=True,blank=True)
     #Occupant_PRANAMS_ID=models.ForeignKey(Occupant_Master, on_delete=models.CASCADE)
     Insurance_Valid_Upto=models.DateField(verbose_name="Insurance Valid Upto in YYYY-MM-DD",null=True,blank=True)
+    Sticker_Number_Available=models.CharField(max_length=5,choices=CHOICES)
     Existing_Sticker_Number=models.IntegerField(null=True,blank=True)
     #Entry_Extended_By=models.CharField(max_length=30)
     Remarks=models.CharField(max_length=200,null=True,blank=True)
@@ -328,7 +353,7 @@ class add_vehicle(models.Model):
     Status=models.CharField(max_length=2,default='Y')
     Gate_Name=models.ManyToManyField('Gate_Master')
     def __str__(self):
-        return self.Name
+        return self.Vehicle_No
 
 # class add_vehicle_Gate_Name(models.Model):
 #      Vehicle_PRANAMS_ID=models.ForeignKey(add_vehicle, on_delete=models.CASCADE)
@@ -342,24 +367,24 @@ class add_vehicle(models.Model):
 #     Status=models.CharField(max_length=1)
 
 
-class add_maid(models.Model):
-    Room=models.ForeignKey(Room_Master, on_delete=models.CASCADE)
-    Maid_ID=models.IntegerField(blank=True,null=True)
-    Maid_Name=models.CharField(max_length=100, null=True, blank=True)
-    Relation=models.CharField(max_length=5, choices=RELATION_CHOICES,null=True, blank=True)
-    Relation_Name=models.CharField(max_length=100, null=True, blank=True)
-    NightDuty_Permitted=models.CharField(max_length=3,choices=CHOICES, null=True,blank=True)
-    Year_Of_Birth=models.IntegerField(null=True,blank=True)
-    Aadhaar_ID=models.IntegerField()
-    Mobile=models.IntegerField(blank=True,null=True)
-    Address_Outside_PSN=models.CharField(max_length=200, blank=True,null=True)
-    Validity=models.DateField(null=True,blank=True,verbose_name="Maid Validity in YYYY-MM-DD")
-    Remarks=models.CharField(max_length=200,null=True,blank=True)
-    Updated_Date=models.DateTimeField(auto_now_add = True)
-    Updated_By=models.CharField(max_length=10,default='Admin')
-    Status=models.CharField(max_length=2,default='Y')
+# class add_maid(models.Model):
+#     Room=models.ForeignKey(Room_Master, on_delete=models.CASCADE)
+#     Maid_ID=models.IntegerField(blank=True,null=True)
+#     Maid_Name=models.CharField(max_length=100, null=True, blank=True)
+#     Relation=models.CharField(max_length=5, choices=RELATION_CHOICES,null=True, blank=True)
+#     Relation_Name=models.CharField(max_length=100, null=True, blank=True)
+#     NightDuty_Permitted=models.CharField(max_length=3,choices=CHOICES, null=True,blank=True)
+#     Year_Of_Birth=models.IntegerField(null=True,blank=True)
+#     Aadhaar_ID=models.IntegerField()
+#     Mobile=models.IntegerField(blank=True,null=True)
+#     Address_Outside_PSN=models.CharField(max_length=200, blank=True,null=True)
+#     Validity=models.DateField(null=True,blank=True,verbose_name="Maid Validity in YYYY-MM-DD")
+#     Remarks=models.CharField(max_length=200,null=True,blank=True)
+#     Updated_Date=models.DateTimeField(auto_now_add = True)
+#     Updated_By=models.CharField(max_length=10,default='Admin')
+#     Status=models.CharField(max_length=2,default='Y')
     
-class add_emergency(models.Model):
+class Emergency(models.Model):
     Room=models.ForeignKey(Room_Master, on_delete=models.CASCADE)
     Emergency_Contact_Name=models.CharField(max_length=40, blank=True,null=True)
     Emergency_Contact_Relationship=models.CharField(max_length=20, choices=RELATIONSHIP_CHOICES, blank=True,null=True)
@@ -371,7 +396,7 @@ class add_emergency(models.Model):
     Updated_By=models.CharField(max_length=10,default='Admin')
     Status=models.CharField(max_length=2,default='Y')
 
-class add_maintenance(models.Model):
+class Maintenance(models.Model):
     Room=models.ForeignKey(Room_Master, on_delete=models.CASCADE)
     Maintenance_Charges_Paid_Upto=models.CharField(verbose_name="Maintenance Charges Paid Upto in MMM-YYYY",max_length=10,blank=True,null=True)
     Electricity_Charges_Paid_Upto=models.CharField(verbose_name="Electrical Charges Paid Upto in MMM-YYYY",max_length=10,blank=True,null=True)
@@ -379,11 +404,155 @@ class add_maintenance(models.Model):
     Updated_By=models.CharField(max_length=10,default='Admin')
     Status=models.CharField(max_length=2,default='Y')
 
-class vehicle_transaction(models.Model):
+class VehicleTransaction(models.Model):
     Sticker_Number=models.IntegerField( blank=True,null=True)
+    In_Out=models.CharField(max_length=5,null=True,blank=True)
     Updated_Date=models.DateTimeField(auto_now_add = True)
     Updated_By=models.CharField(max_length=10,default='Sevadal')
     Status=models.CharField(max_length=2,default='Y')
+
+## Change in design for adding & updating maids
+class Maid(models.Model):
+    Token_Number_Available=models.CharField(max_length=5,choices=CHOICES)
+    Maid_ID=models.IntegerField(unique=True)
+    Maid_Name=models.CharField(max_length=100, null=True, blank=True)
+    Relation=models.CharField(max_length=5, choices=RELATION_CHOICES,null=True, blank=True)
+    Relation_Name=models.CharField(max_length=100, null=True, blank=True)
+    NightDuty_Permitted=models.CharField(max_length=3,choices=CHOICES, null=True,blank=True)
+    Year_Of_Birth=models.IntegerField(null=True,blank=True)
+    Aadhaar_ID=models.IntegerField()
+    Mobile=models.IntegerField(blank=True,null=True)
+    Address_Outside_PSN=models.CharField(max_length=200, blank=True,null=True)
+    #Validity=models.DateField(null=True,blank=True,verbose_name="Maid Validity in YYYY-MM-DD")
+    Remarks=models.CharField(max_length=200,null=True,blank=True)
+    Updated_Date=models.DateTimeField(auto_now_add = True)
+    Updated_By=models.CharField(max_length=10,default='Admin')
+    Status=models.CharField(max_length=2,default='Y')
+    Room=models.ManyToManyField('Room_Master')
+    Photo_File_Name=models.ImageField(upload_to="", blank=True,null=True)
+    QR_Code=models.ImageField(upload_to="", blank=True,null=True)
+
+    def __str__(self):
+        return self.Maid_Name
+
+    def image_tag(self):
+        return mark_safe('<img src="/media/%s" width="150" height="150" />' % (self.Photo_File_Name))
+
+    image_tag.short_description = 'Image'
+
+def get_Validity():
+    year=datetime.now().year
+    month=datetime.now().month
+    day=datetime.now().day
+    date_of_last_day_of_quarter=date(2021,1,1)
+    
+    if(month==3 or month==6 or month==9 or month==12):
+    
+        if(day>=15):
+            if(month==12):
+                quarter=month//3
+                last_month_of_quarter=3
+                date_of_last_day_of_quarter = date(year+1, last_month_of_quarter, monthrange(year, last_month_of_quarter)[1])
+            else:
+                quarter=month//3 +1
+                last_month_of_quarter = 3 * quarter
+                date_of_last_day_of_quarter = date(year, last_month_of_quarter, monthrange(year, last_month_of_quarter)[1])
+            
+        else:
+            quarter=month//3
+            last_month_of_quarter = 3 * quarter
+            date_of_last_day_of_quarter = date(year, last_month_of_quarter, monthrange(year, last_month_of_quarter)[1])
+
+    else:
+        quarter=month//3 +1
+        last_month_of_quarter = 3 * quarter 
+        date_of_last_day_of_quarter = date(year, last_month_of_quarter, monthrange(year, last_month_of_quarter)[1])
+
+    validity=str(date_of_last_day_of_quarter)                
+    return validity
+
+class MaidTransaction(models.Model):
+    Maid_ID=models.IntegerField()
+    Updated_Date=models.DateTimeField(auto_now_add = True)
+    Updated_By=models.CharField(max_length=10,default='Sevadal')
+    In_Out=models.CharField(max_length=5,null=True,blank=True)
+    Status=models.CharField(max_length=2,default='Y')
+
+
+class TempVehicleTransaction(models.Model):
+    Vehicle_No=models.CharField(max_length=20)
+    In_Out=models.CharField(max_length=5,null=True,blank=True)
+    Updated_Date=models.DateTimeField(auto_now_add = True)
+    Updated_By=models.CharField(max_length=10,default='Sevadal')
+    Status=models.CharField(max_length=2,default='Y')
+
+
+def get_Validity():
+    year=datetime.now().year
+    month=datetime.now().month
+    day=datetime.now().day
+    date_of_last_day_of_quarter=date(2021,1,1)
+    
+    if(month==3 or month==6 or month==9 or month==12):
+    
+        if(day>=15):
+            if(month==12):
+                quarter=month//3
+                last_month_of_quarter=3
+                date_of_last_day_of_quarter = date(year+1, last_month_of_quarter, monthrange(year, last_month_of_quarter)[1])
+            else:
+                quarter=month//3 +1
+                last_month_of_quarter = 3 * quarter
+                date_of_last_day_of_quarter = date(year, last_month_of_quarter, monthrange(year, last_month_of_quarter)[1])
+            
+        else:
+            quarter=month//3
+            last_month_of_quarter = 3 * quarter
+            date_of_last_day_of_quarter = date(year, last_month_of_quarter, monthrange(year, last_month_of_quarter)[1])
+
+    else:
+        quarter=month//3 +1
+        last_month_of_quarter = 3 * quarter 
+        date_of_last_day_of_quarter = date(year, last_month_of_quarter, monthrange(year, last_month_of_quarter)[1])
+
+    validity=str(date_of_last_day_of_quarter)                
+    return validity
+
+class maid_renewal(models.Model):
+    Maid_ID=models.ForeignKey(Maid, on_delete=models.CASCADE)
+    Maid_ID=models.IntegerField()
+    Validity=models.DateField(default=get_Validity)
+    Updated_Date=models.DateTimeField(auto_now_add = True)
+    Updated_By=models.CharField(max_length=10,default='CSO')
+    Status=models.CharField(max_length=2,default='Y')
+
+class vehicle_renewal(models.Model):
+    Sticker_Num=models.IntegerField()
+    Validity=models.DateField(default=get_Validity)
+    Updated_Date=models.DateTimeField(auto_now_add = True)
+    Updated_By=models.CharField(max_length=10,default='CSO')
+    Status=models.CharField(max_length=2,default='Y')
+
+
+class TempVehicle(models.Model):
+     Vehicle_No=models.CharField(max_length=20,unique=True)
+     Name=models.CharField(max_length=100,null=True,blank=True)
+     Type_Of_Vehicle=models.CharField(max_length=20, choices=VEHICLE_TYPE_CHOICES)
+     Purpose=models.CharField(max_length=100,null=True,blank=True)
+     Reference_Person_in_Ashram=models.CharField(max_length=100)
+     Date_in=models.DateField(default=datetime.now().date() + timedelta(days=1))
+     Date_out=models.DateField(default=datetime.now().date() + timedelta(days=2))
+     Remarks=models.CharField(max_length=100,null=True,blank=True)
+     Updated_Date=models.DateTimeField(auto_now_add = True)
+     Updated_By=models.CharField(max_length=10,default='CSO')
+     Status=models.CharField(max_length=2,default='Y') 
+
+    
+# class MyModel(models.Model):
+#     my_state_field = StateField()    
+    
+# class search_Room_transaction(models.Model):
+#     Room=models.ForeignKey(Room_Master, on_delete=models.CASCADE, blank=True,null=True)
 
 
 
