@@ -13,6 +13,8 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 from pathlib import Path
 import os
 from django.contrib.messages import constants as messages
+from django.core.exceptions import ImproperlyConfigured
+from dotenv import load_dotenv
 
 MESSAGE_TAGS = {
         messages.DEBUG: 'alert-secondary',
@@ -24,6 +26,18 @@ MESSAGE_TAGS = {
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+
+# Secrets and per-environment values come from environment variables, loaded
+# from BASE_DIR/.env when present (see .env.example). Never commit .env.
+load_dotenv(BASE_DIR / '.env')
+
+
+def env_bool(name, default=False):
+    return os.environ.get(name, str(default)).strip().lower() in ('1', 'true', 'yes', 'on')
+
+
+def env_list(name, default):
+    return [item.strip() for item in os.environ.get(name, default).split(',') if item.strip()]
 
 MEDIA_URL='/media/'
 MEDIA_ROOT=os.path.join(BASE_DIR,"media")
@@ -42,17 +56,28 @@ STATIC_ROOT = os.path.join(BASE_DIR, "static")
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-9#n&qx8tw7&wa@#3o$-fxkhhkc4krzu8ragk)xt-&0l)v=op1@'
-
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+# Off unless DJANGO_DEBUG=True is set (do that only in a local .env).
+DEBUG = env_bool('DJANGO_DEBUG', False)
 
-ALLOWED_HOSTS = ['192.168.29.240','192.168.0.185','127.0.0.1','192.168.1.100',
-                '192.168.1.101','192.168.1.102','192.168.1.137','192.168.1.12',
-                'pranams.pythonanywhere.com','192.168.1.39','192.168.0.6','192.168.155.137','192.168.0.7',
-                '192.168.174.137','192.168.29.129']
-LANGUAGE_CODE ='en-GB'
+# SECURITY WARNING: keep the secret key used in production secret!
+SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY')
+if not SECRET_KEY:
+    if not DEBUG:
+        raise ImproperlyConfigured('DJANGO_SECRET_KEY must be set when DEBUG is off (see .env.example).')
+    SECRET_KEY = 'django-insecure-local-dev-only-do-not-use-in-production'
+
+# Comma-separated; add LAN IPs here (e.g. 192.168.1.100) when testing on a local network.
+ALLOWED_HOSTS = env_list('DJANGO_ALLOWED_HOSTS', 'pranams.pythonanywhere.com,127.0.0.1,localhost')
+
+# Django 3.2 expects bare hosts here (the https:// form is Django 4.0+).
+CSRF_TRUSTED_ORIGINS = env_list('DJANGO_CSRF_TRUSTED_ORIGINS', 'pranams.pythonanywhere.com')
+
+# PythonAnywhere terminates HTTPS at its proxy; with "Force HTTPS" on in the
+# Web tab, every request arrives over HTTPS, so cookies can be secure-only.
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+SESSION_COOKIE_SECURE = env_bool('DJANGO_SECURE_COOKIES', not DEBUG)
+CSRF_COOKIE_SECURE = SESSION_COOKIE_SECURE
 
 
 
