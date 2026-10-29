@@ -534,14 +534,20 @@ class vehicle_renewal(models.Model):
     Status=models.CharField(max_length=2,default='Y')
 
 
+def tomorrow():
+    return date.today() + timedelta(days=1)
+
+def day_after_tomorrow():
+    return date.today() + timedelta(days=2)
+
 class TempVehicle(models.Model):
      Vehicle_No=models.CharField(max_length=20,unique=True)
      Name=models.CharField(max_length=100,null=True,blank=True)
      Type_Of_Vehicle=models.CharField(max_length=20, choices=VEHICLE_TYPE_CHOICES)
      Purpose=models.CharField(max_length=100,null=True,blank=True)
      Reference_Person_in_Ashram=models.CharField(max_length=100)
-     Date_in=models.DateField(default=datetime.now().date() + timedelta(days=1))
-     Date_out=models.DateField(default=datetime.now().date() + timedelta(days=2))
+     Date_in=models.DateField(default=tomorrow)
+     Date_out=models.DateField(default=day_after_tomorrow)
      Remarks=models.CharField(max_length=100,null=True,blank=True)
      Updated_Date=models.DateTimeField(auto_now_add = True)
      Updated_By=models.CharField(max_length=10,default='CSO')
