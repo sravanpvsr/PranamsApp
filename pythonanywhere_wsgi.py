@@ -1,17 +1,17 @@
 # Reference copy of the PythonAnywhere WSGI file.
 #
 # PythonAnywhere does NOT read this file. The live one is
-#   /var/www/pranams_pythonanywhere_com_wsgi.py
+#   /var/www/pranams2_pythonanywhere_com_wsgi.py
 # (Web tab -> "WSGI configuration file"). Replace its whole contents with
 # the code below. See DEPLOY.md.
 #
-# Settings read SECRET_KEY, DEBUG etc. from /home/pranams/PranamsApp/.env,
+# Settings read SECRET_KEY, DEBUG etc. from /home/pranams2/PranamsApp/.env,
 # so nothing secret belongs in this file.
 
 import os
 import sys
 
-PROJECT_DIR = '/home/pranams/PranamsApp'
+PROJECT_DIR = '/home/pranams2/PranamsApp'
 if PROJECT_DIR not in sys.path:
     sys.path.insert(0, PROJECT_DIR)
 

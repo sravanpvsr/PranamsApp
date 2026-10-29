@@ -1,9 +1,9 @@
 # Deploying to PythonAnywhere
 
-Site: https://pranams.pythonanywhere.com · account `pranams` · Python **3.10**
+Site: https://pranams2.pythonanywhere.com · account `pranams2` · Python **3.10**
 (Django 3.2 does not run on 3.13).
 
-Paths below assume the code lives in `/home/pranams/PranamsApp`. If the Web
+Paths below assume the code lives in `/home/pranams2/PranamsApp`. If the Web
 tab's **Source code** shows a different folder, use that everywhere instead.
 
 All commands run in a PythonAnywhere **Bash console**.
@@ -90,21 +90,21 @@ already exist, so Django only records the migration and changes no data.
 | Setting | Value |
 |---|---|
 | Python version | 3.10 |
-| Source code | `/home/pranams/PranamsApp` |
-| Working directory | `/home/pranams/PranamsApp` |
-| Virtualenv | `/home/pranams/.virtualenvs/pranams-venv` |
+| Source code | `/home/pranams2/PranamsApp` |
+| Working directory | `/home/pranams2/PranamsApp` |
+| Virtualenv | `/home/pranams2/.virtualenvs/pranams-venv` |
 | Force HTTPS | **Enabled** (needed: login cookies are HTTPS-only) |
 
 **WSGI configuration file**: open
-`/var/www/pranams_pythonanywhere_com_wsgi.py` and replace everything in it
+`/var/www/pranams2_pythonanywhere_com_wsgi.py` and replace everything in it
 with the contents of `pythonanywhere_wsgi.py` from this repo.
 
 **Static files** mappings:
 
 | URL | Directory |
 |---|---|
-| `/static/` | `/home/pranams/PranamsApp/static` |
-| `/media/` | `/home/pranams/PranamsApp/media` |
+| `/static/` | `/home/pranams2/PranamsApp/static` |
+| `/media/` | `/home/pranams2/PranamsApp/media` |
 
 Admin, DRF and bootstrap assets are already committed in `static/`, so you
 don't need to run `collectstatic`.
@@ -113,8 +113,8 @@ don't need to run `collectstatic`.
 
 Click the green **Reload** button, then open:
 
-- https://pranams.pythonanywhere.com/ (the home page)
-- https://pranams.pythonanywhere.com/admin/login/ (the styled admin login)
+- https://pranams2.pythonanywhere.com/ (the home page)
+- https://pranams2.pythonanywhere.com/admin/login/ (the styled admin login)
 - a resident photo under `/media/...`
 
 ## Logs
@@ -122,9 +122,9 @@ Click the green **Reload** button, then open:
 Web tab → **Log files**, or in a console:
 
 ```bash
-tail -n 50 /var/log/pranams.pythonanywhere.com.error.log    # tracebacks
-tail -n 50 /var/log/pranams.pythonanywhere.com.server.log   # print() output
-tail -n 50 /var/log/pranams.pythonanywhere.com.access.log
+tail -n 50 /var/log/pranams2.pythonanywhere.com.error.log    # tracebacks
+tail -n 50 /var/log/pranams2.pythonanywhere.com.server.log   # print() output
+tail -n 50 /var/log/pranams2.pythonanywhere.com.access.log
 ```
 
 With `DEBUG=False`, errors show as a plain "Server Error (500)" page and the

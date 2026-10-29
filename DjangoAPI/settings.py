@@ -68,10 +68,10 @@ if not SECRET_KEY:
     SECRET_KEY = 'django-insecure-local-dev-only-do-not-use-in-production'
 
 # Comma-separated; add LAN IPs here (e.g. 192.168.1.100) when testing on a local network.
-ALLOWED_HOSTS = env_list('DJANGO_ALLOWED_HOSTS', 'pranams.pythonanywhere.com,127.0.0.1,localhost')
+ALLOWED_HOSTS = env_list('DJANGO_ALLOWED_HOSTS', 'pranams2.pythonanywhere.com,127.0.0.1,localhost')
 
 # Django 3.2 expects bare hosts here (the https:// form is Django 4.0+).
-CSRF_TRUSTED_ORIGINS = env_list('DJANGO_CSRF_TRUSTED_ORIGINS', 'pranams.pythonanywhere.com')
+CSRF_TRUSTED_ORIGINS = env_list('DJANGO_CSRF_TRUSTED_ORIGINS', 'pranams2.pythonanywhere.com')
 
 # PythonAnywhere terminates HTTPS at its proxy; with "Force HTTPS" on in the
 # Web tab, every request arrives over HTTPS, so cookies can be secure-only.
