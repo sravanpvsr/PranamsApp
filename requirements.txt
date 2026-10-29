@@ -1,0 +1,14 @@
+# Python 3.10 only (Django 3.2 needs the `cgi` module, removed in 3.13).
+Django==3.2.25
+djangorestframework==3.14.0
+django-cors-headers==3.13.0
+django-bootstrap4==22.3
+django-session-timeout==0.1.0
+django-filter==22.1
+django-tables2==2.5.3
+django-extensions==3.2.3
+django-river==3.3.0
+PyQRCode==1.2.1
+pypng==0.20220715.0
+Pillow==12.3.0
+python-dotenv==1.2.4
